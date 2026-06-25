@@ -3,361 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Plataforma Exclusiva Digital - NovaPixel</title>
+    <title>Plataforma Exclusiva - NovaPixel</title>
     
-    <!-- Fontes Premium de Alta Performance -->
+    <!-- Fontes Editoriais de Luxo -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --anim-fluid: cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
+        html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
+        /* Definição de Variáveis de Cor Clara (Evitando o Preto Geral) */
         body {
-            min-height: 100vh;
-            color: #ffffff;
-            background-color: #080809;
+            color: var(--text-main);
+            background-color: var(--bg-main);
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
-            position: relative;
+            line-height: 1.6;
         }
 
-        /* Fundos Atmosféricos Dinâmicos */
-        .ambient-glow {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none;
-            background: radial-gradient(circle at 80% 20%, var(--glow-1) 0%, transparent 55%),
-                        radial-gradient(circle at 20% 80%, var(--glow-2) 0%, #070708 85%);
-        }
-
-        /* Estrutura Principal em Grelha Expandida (Cinema Layout) */
-        .app-container {
-            position: relative; z-index: 5;
-            width: 100%; max-width: 1440px;
-            margin: 0 auto; min-height: 100vh;
-            display: grid; grid-template-columns: 1fr 1.2fr;
-            gap: 35px; padding: 35px;
-        }
-
-        /* COLUNA ESQUERDA: SIDEBAR DE IDENTIDADE COM IMAGEM DE DESTAQUE */
-        .brand-sidebar {
-            display: flex; flex-direction: column; justify-content: space-between;
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: var(--radius); padding: 45px;
-            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            position: relative; overflow: hidden;
-        }
-
-        .header-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; position: relative; z-index: 3; }
-        .live-status {
-            font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-            padding: 6px 14px; border-radius: 30px; display: flex; align-items: center; gap: 8px;
-            background: rgba(46, 213, 115, 0.1); color: #2ed573; border: 1px solid rgba(46, 213, 115, 0.2);
-        }
-        .live-status::before { content: ""; width: 6px; height: 6px; background: #2ed573; border-radius: 50%; box-shadow: 0 0 10px #2ed573; }
-
-        .sidebar-content { position: relative; z-index: 3; }
-        .main-title { font-size: 44px; font-weight: 400; line-height: 1.1; margin-bottom: 12px; letter-spacing: var(--title-spacing); color: #fff; }
-        .main-slogan { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 25px; }
-        .main-story { font-size: 15px; line-height: 1.8; opacity: 0.8; text-align: justify; margin-bottom: 35px; font-weight: 300; }
-
-        /* Grande Imagem de Banner na Sidebar (Traz vida e preenche o ecrã) */
-        .sidebar-hero-frame {
-            width: 100%; height: 200px; border-radius: calc(var(--radius) / 2);
-            overflow: hidden; margin-bottom: 30px; border: 1px solid var(--border-color);
-            position: relative; z-index: 3;
-        }
-        .sidebar-hero-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--anim-fluid); }
-        .sidebar-hero-frame:hover img { transform: scale(1.05); }
-
-        /* Módulo de Horários Elegante */
-        .hours-panel {
-            background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03);
-            border-radius: calc(var(--radius) / 2); padding: 22px; position: relative; z-index: 3;
-        }
-        .hours-title { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
-        .hours-row { display: flex; justify-content: space-between; font-size: 13px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); opacity: 0.8; }
-        .hours-row:last-child { border-bottom: none; }
-
-        /* COLUNA DIREITA: CONTEÚDO INTERATIVO DINÂMICO */
-        .content-workspace { display: flex; flex-direction: column; gap: 20px; }
-
-        /* Barra de Abas Premium */
-        .tabs-nav {
-            display: flex; background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: var(--radius-nav); padding: 6px; gap: 4px;
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .tab-trigger {
-            flex: 1; text-align: center; padding: 15px 0; font-size: 11px; font-weight: 700;
-            letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4);
-            cursor: pointer; border-radius: calc(var(--radius-nav) - 4px); transition: all 0.3s var(--anim-fluid);
-        }
-        .tab-trigger.active { background: var(--accent); color: var(--btn-text); box-shadow: 0 10px 25px var(--shadow-accent); }
-
-        /* Painéis de Conteúdo com Animação Cinema */
-        .workspace-card {
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: var(--radius); padding: 40px; min-height: 550px;
-            display: none; animation: slideUp 0.6s var(--anim-fluid) forwards;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-        }
-        .workspace-card.active { display: block; }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(15px); filter: blur(4px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-
-        .section-header { margin-bottom: 30px; }
-        .section-title { font-size: 26px; font-weight: 400; letter-spacing: var(--title-spacing); margin-bottom: 5px; }
-        .section-subtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; }
-
-        /* Lista de Serviços Interativa com Imagens e Estrelas */
-        .services-grid { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
-        .service-item-card {
-            display: flex; gap: 20px; align-items: center;
-            padding: 16px; background: rgba(255,255,255,0.01);
-            border: 1px solid rgba(255,255,255,0.04); border-radius: calc(var(--radius) / 2.5);
-            cursor: pointer; transition: all 0.25s ease;
-        }
-        .service-item-card:hover { background: rgba(255,255,255,0.03); border-color: var(--accent); transform: translateY(-1px); }
-        .service-item-card.selected { background: var(--selected-bg); border-color: var(--accent); }
-        
-        /* Thumbnail Imagem do Menu */
-        .service-img-wrapper {
-            width: 80px; height: 80px; border-radius: calc(var(--radius) / 4);
-            overflow: hidden; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.06);
-        }
-        .service-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-
-        .service-info { flex-grow: 1; }
-        .service-info h4 { font-size: 16px; font-weight: 500; margin-bottom: 3px; color: #fff; transition: color 0.2s; }
-        .service-item-card.selected .service-info h4 { color: var(--accent); }
-        .service-info p { font-size: 12px; opacity: 0.4; font-weight: 300; line-height: 1.4; margin-bottom: 6px; }
-        
-        /* Nova Linha de Classificação por Estrelas (Ratings) */
-        .service-rating { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #f1c40f; font-weight: 600; font-family: 'Montserrat', sans-serif; }
-        .service-rating .stars-gold { letter-spacing: 1px; }
-        .service-rating .review-count { color: rgba(255,255,255,0.3); font-weight: 300; margin-left: 2px; }
-
-        .service-price { font-size: 17px; font-weight: 600; color: var(--accent); font-family: 'Montserrat', sans-serif; padding-left: 10px; }
-
-        /* Caixa de Resumo e Faturação */
-        .checkout-summary {
-            background: rgba(0,0,0,0.15); padding: 20px; border-radius: 14px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-left: 4px solid var(--accent); margin-top: 10px;
-        }
-        .checkout-summary text { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.5; }
-        .checkout-summary .total-price { font-size: 22px; font-weight: 700; color: var(--accent); }
-
-        /* Formulários Clean e Inputs */
-        .form-wrapper { display: flex; flex-direction: column; gap: 20px; }
-        .input-block label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; opacity: 0.6; font-weight: 600; }
-        .input-element {
-            width: 100%; padding: 18px; background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.07); border-radius: calc(var(--radius) / 3);
-            color: #fff; font-size: 14px; transition: all 0.3s; font-family: 'Montserrat', sans-serif;
-        }
-        .input-element:focus { outline: none; border-color: var(--accent); background: rgba(255,255,255,0.05); }
-        select.input-element option { background: #0c0c0e; color: #fff; }
-
-        .highlights-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-        .highlight-mini-box { background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03); padding: 18px; border-radius: 12px; }
-        .highlight-mini-box h5 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 4px; }
-        .highlight-mini-box p { font-size: 12px; opacity: 0.5; font-weight: 300; }
-
-        /* Botões de Ação de Luxo */
-        .btn-luxury-action {
-            width: 100%; background: var(--accent); color: var(--btn-text);
-            padding: 20px; border-radius: var(--btn-radius); font-size: 12px;
-            font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; border: none;
-            cursor: pointer; transition: all 0.3s var(--anim-fluid); text-align: center; box-shadow: 0 10px 30px var(--shadow-accent);
-        }
-        .btn-luxury-action:hover { filter: brightness(1.2); transform: translateY(-2px); }
-
-        /* Google Maps */
-        .map-wrapper-box { width: 100%; height: 400px; border-radius: calc(var(--radius) / 2); overflow: hidden; border: 1px solid var(--border-color); background: #000; }
-        .map-wrapper-box iframe { width: 100%; height: 100%; border: none; }
-
-        /* Rodapé NovaPixel */
-        .novapixel-footer {
-            grid-column: 1 / span 2; text-align: center; padding: 25px 0 10px 0;
-            font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.3;
-            border-top: 1px solid rgba(255,255,255,0.04); margin-top: 15px;
-        }
-
-        /* =====================================================================
-           ARQUITETURA DE ABAS E CONFIGURAÇÕES DE TEMA RADICAL
-        ===================================================================== */
-        
-        /* TEMA: RESTAURANTE (Gourmet / Elegância) */
+        /* ---------------------------------------------------------------------
+           CONFIGURAÇÃO DOS TEMAS CLAROS (Restaurante Gourmet & Barbearia Atelier)
+        --------------------------------------------------------------------- */
         body.theme-restaurante {
+            --bg-main: #fbf9f6; /* Marfim / Creme Suave */
+            --bg-card: #ffffff;
+            --text-main: #2c2520; /* Castanho Café Profundo */
+            --text-muted: #6e655f;
+            --accent: #cfa87f; /* Ouro Velho Castro */
+            --accent-light: #f5ede4;
+            --border: rgba(207, 168, 127, 0.25);
+            --shadow: rgba(44, 37, 32, 0.04);
             font-family: 'Cormorant Garamond', serif;
-            --glow-1: rgba(226, 168, 122, 0.12); --glow-2: rgba(141, 99, 64, 0.08);
-            --card-bg: rgba(12, 13, 15, 0.75); --border-color: rgba(226, 168, 122, 0.15);
-            --accent: #e2a87a; --btn-text: #0b0c0d; --shadow-accent: rgba(226, 168, 122, 0.2);
-            --selected-bg: rgba(226, 168, 122, 0.07);
-            --radius: 36px; --radius-nav: 50px; --btn-radius: 16px; --title-spacing: -1px;
         }
-        body.theme-restaurante .input-element { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 500; }
-        body.theme-restaurante .tab-trigger, body.theme-restaurante .live-status, body.theme-restaurante .service-price, body.theme-restaurante .service-rating, body.theme-restaurante .checkout-summary, body.theme-restaurante .novapixel-footer { font-family: 'Montserrat', sans-serif; }
+        body.theme-restaurante .sans { font-family: 'Montserrat', sans-serif; }
 
-        /* TEMA: BARBEARIA (Industrial / Vintage) */
         body.theme-barbearia {
-            font-family: 'Cinzel', serif;
-            --glow-1: rgba(197, 160, 89, 0.08); --glow-2: rgba(35, 35, 35, 0.4);
-            --card-bg: rgba(10, 10, 11, 0.92); --border-color: rgba(197, 160, 89, 0.2);
-            --accent: #c5a059; --btn-text: #000000; --shadow-accent: rgba(197, 160, 89, 0.15);
-            --selected-bg: rgba(197, 160, 89, 0.09);
-            --radius: 4px; --radius-nav: 4px; --btn-radius: 2px; --title-spacing: 1px;
+            --bg-main: #f4f5f6; /* Cinza Alfa / Alvo */
+            --bg-card: #ffffff;
+            --text-main: #1c1d21; /* Safira Escuro / Grafite */
+            --text-muted: #5c5e65;
+            --accent: #b5893d; /* Bronze / Âmbar */
+            --accent-light: #f0e6d6;
+            --border: rgba(181, 137, 61, 0.2);
+            --shadow: rgba(28, 29, 33, 0.04);
+            font-family: 'Playfair Display', serif;
         }
-        body.theme-barbearia .input-element { font-family: 'Cinzel', serif; font-size: 13px; }
-        body.theme-barbearia .service-price, body.theme-barbearia .checkout-summary, body.theme-barbearia .tab-trigger, body.theme-barbearia .hours-row, body.theme-barbearia .live-status, body.theme-barbearia .novapixel-footer { font-family: 'Montserrat', sans-serif; }
+        body.theme-barbearia .sans { font-family: 'Montserrat', sans-serif; }
 
-        /* Responsividade para Tablets e Dispositivos Móveis */
-        @media(max-width: 1024px) {
-            .app-container { grid-template-columns: 1fr; padding: 15px; gap: 20px; }
-            .brand-sidebar { padding: 35px 20px; }
-            .main-title { font-size: 34px; }
-            .workspace-card { padding: 30px 20px; }
+        /* Componentes Globais */
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 25px; }
+        .section-padding { padding: 100px 0; }
+        
+        .editorial-title { font-size: 48px; font-weight: 400; line-height: 1.1; color: var(--text-main); margin-bottom: 15px; }
+        .editorial-subtitle { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-family: 'Montserrat', sans-serif; margin-bottom: 20px; display: block; }
+
+        /* ---------------------------------------------------------------------
+           NAVBAR FLUTUANTE (Efeito Vidro Claro)
+        --------------------------------------------------------------------- */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border); z-index: 100;
+            display: flex; align-items: center; transition: all 0.3s;
+        }
+        .navbar-box { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .brand-logo { font-size: 20px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-main); font-family: 'Montserrat', sans-serif; text-decoration: none; }
+        .brand-logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 35px; list-style: none; }
+        .nav-links a { text-decoration: none; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-main); opacity: 0.7; transition: all 0.3s; font-family: 'Montserrat', sans-serif; }
+        .nav-links a:hover { opacity: 1; color: var(--accent); }
+
+        /* ---------------------------------------------------------------------
+           SECÇÃO 1: HERO (Abertura de Impacto)
+        --------------------------------------------------------------------- */
+        .hero-section { min-height: 90vh; padding-top: 80px; display: flex; align-items: center; position: relative; background: var(--bg-card); }
+        .hero-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: center; width: 100%; }
+        .hero-headline { font-size: 64px; font-weight: 400; line-height: 1.05; color: var(--text-main); margin-bottom: 20px; }
+        .hero-headline span { font-style: italic; }
+        .hero-text { font-size: 16px; color: var(--text-muted); font-family: 'Montserrat', sans-serif; font-weight: 300; margin-bottom: 35px; max-width: 480px; }
+        
+        .hero-image-frame { width: 100%; height: 550px; border-radius: 4px; overflow: hidden; box-shadow: 0 30px 70px var(--shadow); border: 1px solid var(--border); }
+        .hero-image-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        .btn-prime {
+            display: inline-block; padding: 18px 40px; background: var(--text-main); color: var(--bg-main);
+            font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px;
+            text-decoration: none; border-radius: 2px; transition: all 0.3s; font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .btn-prime:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+
+        /* ---------------------------------------------------------------------
+           SECÇÃO 2: SOBRE NÓS (Estilo Editorial Castro)
+        --------------------------------------------------------------------- */
+        .about-section { background: var(--bg-main); border-top: 1px solid var(--border); }
+        .about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 8px; align-items: center; }
+        .about-text-panel { padding-right: 50px; }
+        .about-paragraph { font-size: 17px; font-weight: 300; color: var(--text-muted); text-align: justify; margin-bottom: 25px; }
+
+        /* ---------------------------------------------------------------------
+           SECÇÃO 3: O MENU / CATALOGO (Imagens + Estrelas)
+        --------------------------------------------------------------------- */
+        .menu-section { background: var(--bg-card); border-top: 1px solid var(--border); }
+        .menu-architecture { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
+        
+        .menu-item-row {
+            display: flex; align-items: center; gap: 30px; padding: 25px;
+            background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px;
+            cursor: pointer; transition: all 0.3s var(--anim-fluid);
+        }
+        .menu-item-row:hover { transform: translateY(-2px); box-shadow: 0 15px 40px var(--shadow); border-color: var(--accent); }
+        .menu-item-row.selected { background: var(--accent-light); border-color: var(--accent); }
+
+        .menu-item-img { width: 100px; height: 100px; border-radius: 2px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); }
+        .menu-item-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        .menu-item-details { flex-grow: 1; }
+        .menu-item-details h4 { font-size: 22px; font-weight: 400; color: var(--text-main); margin-bottom: 4px; }
+        .menu-item-details p { font-size: 13px; color: var(--text-muted); font-family: 'Montserrat', sans-serif; font-weight: 300; margin-bottom: 8px; }
+
+        /* Bloco de Avaliações com Estrelas Douradas */
+        .rating-badge { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #d4af37; font-weight: 600; font-family: 'Montserrat', sans-serif; }
+        .rating-badge .stars { letter-spacing: 1px; }
+        .rating-badge .count { color: var(--text-muted); font-weight: 300; margin-left: 3px; }
+
+        .menu-item-price { font-size: 22px; font-weight: 400; color: var(--text-main); padding-left: 20px; }
+
+        /* Caixa de Faturação Flutuante Interna */
+        .billing-sticky-bar {
+            background: var(--bg-main); border: 1px solid var(--border); padding: 25px 35px;
+            border-radius: 4px; margin-top: 30px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .billing-info text { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); font-family: 'Montserrat', sans-serif; }
+        .billing-info .total-val { font-size: 32px; font-weight: 400; color: var(--text-main); margin-top: 2px; }
+
+        /* ---------------------------------------------------------------------
+           SECÇÃO 4: MARCAÇÕES / FORMULÁRIO
+        --------------------------------------------------------------------- */
+        .booking-section { background: var(--bg-main); border-top: 1px solid var(--border); }
+        .booking-box { background: var(--bg-card); border: 1px solid var(--border); padding: 50px; border-radius: 4px; box-shadow: 0 30px 60px var(--shadow); max-width: 800px; margin: 40px auto 0 auto; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group.full-width { grid-column: 1 / span 2; }
+        .form-group label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-main); margin-bottom: 10px; font-family: 'Montserrat', sans-serif; }
+        
+        .form-input {
+            width: 100%; padding: 18px; background: var(--bg-main); border: 1px solid var(--border);
+            color: var(--text-main); font-size: 14px; border-radius: 2px; transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+        body.theme-restaurante .form-input { font-family: 'Cormorant Garamond', serif; font-size: 17px; }
+        .form-input:focus { outline: none; border-color: var(--text-main); background: #fff; }
+
+        /* Meta Módulos Informativos */
+        .info-cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+        .info-mini-card { background: var(--bg-main); padding: 25px; border-radius: 2px; border-left: 3px solid var(--accent); }
+        .info-mini-card h5 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); margin-bottom: 6px; font-family: 'Montserrat', sans-serif; }
+        .info-mini-card p { font-size: 13px; color: var(--text-muted); font-family: 'Montserrat', sans-serif; font-weight: 300; }
+
+        /* ---------------------------------------------------------------------
+           SECÇÃO 5: LOCALIZAÇÃO & CONTACTOS
+        --------------------------------------------------------------------- */
+        .maps-section { background: var(--bg-card); border-top: 1px solid var(--border); }
+        .maps-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5px; background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-top: 40px; }
+        .maps-details-panel { padding: 45px; display: flex; flex-direction: column; justify-content: space-between; background: var(--bg-card); }
+        
+        .contact-entry { margin-bottom: 25px; }
+        .contact-entry h5 { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); font-family: 'Montserrat', sans-serif; margin-bottom: 5px; }
+        .contact-entry p { font-size: 16px; font-weight: 400; color: var(--text-main); }
+
+        .map-iframe-container { width: 100%; height: 450px; background: #eee; }
+        .map-iframe-container iframe { width: 100%; height: 100%; border: none; }
+
+        /* Rodapé de Alta Costura */
+        .luxury-footer {
+            background: var(--bg-card); border-top: 1px solid var(--border); padding: 40px 0;
+            text-align: center; font-size: 10px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--text-muted); opacity: 0.8; font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Ajustes Responsivos Completos */
+        @media (max-width: 991px) {
+            .hero-grid, .about-grid, .maps-grid { grid-template-columns: 1fr; gap: 40px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: auto; }
+            .hero-image-frame { height: 380px; }
+            .nav-links { display: none; } /* Simplificação mobile */
+            .editorial-title { font-size: 36px; }
+            .hero-headline { font-size: 42px; }
         }
     </style>
 </head>
 <body class="theme-restaurante" id="app-root-viewport">
 
-    <div class="ambient-glow"></div>
+    <!-- NAVBAR FLUTUANTE -->
+    <header class="navbar">
+        <div class="container navbar-box">
+            <a href="#inicio" class="brand-logo" id="dyn-logo-name">A Carregar...</a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><a href="#menu">O Menu</a></li>
+                <li><a href="#marcar">Reservas</a></li>
+                <li><a href="#onde">Onde Estamos</a></li>
+            </ul>
+        </div>
+    </header>
 
-    <div class="app-container">
-        
-        <!-- COLUNA ESQUERDA: SIDEBAR INSTITUCIONAL COM BANNER REAL -->
-        <aside class="brand-sidebar">
-            <div class="sidebar-content">
-                <div class="header-meta">
-                    <span style="font-size: 9px; font-weight: 700; letter-spacing: 2px; opacity: 0.4; text-transform: uppercase;">NovaPixel Agency</span>
-                    <div class="live-status">Aberto Agora</div>
-                </div>
-                
-                <h1 class="main-title" id="dyn-main-name">A Carregar...</h1>
-                <p class="main-slogan" id="dyn-slogan">Conceito de Excelência</p>
-                
-                <!-- Imagem Principal da Empresa Dinâmica -->
-                <div class="sidebar-hero-frame">
-                    <img src="" id="dyn-sidebar-img" alt="Ambiente Corporativo" loading="lazy">
-                </div>
-
-                <p class="main-story" id="dyn-story-paragraph">
-                    Seja bem-vindo ao nosso espaço exclusivo. Criámos um conceito focado na alta precisão e conforto, onde cada detalhe foi meticulosamente planeado para oferecer uma experiência singular e memorável.
-                </p>
-            </div>
-
-            <!-- Painel de Horários Operacionais -->
+    <!-- SECÇÃO 1: HERO -->
+    <section class="hero-section" id="inicio">
+        <div class="container hero-grid">
             <div>
-                <div class="hours-panel">
-                    <div class="hours-title">Horário de Funcionamento</div>
-                    <div class="hours-row"><span>Terça a Sexta</span><strong>12:00 – 23:00</strong></div>
-                    <div class="hours-row"><span>Sábado</span><strong>13:00 – 00:00</strong></div>
-                    <div class="hours-row"><span>Domingo e Segunda</span><span style="opacity:0.4; font-style:italic;">Descanso Semanal</span></div>
+                <span class="editorial-subtitle" id="dyn-slogan-top">Conceito de Excelência</span>
+                <h1 class="hero-headline" id="dyn-main-title">A Arte da Experiência Absoluta</h1>
+                <p class="hero-text">Um espaço onde a tradição se funde com a sofisticação contemporânea para desenhar momentos inesquecíveis.</p>
+                <a href="#menu" class="btn-prime">Explorar Seleção</a>
+            </div>
+            <div class="hero-image-frame">
+                <img src="" id="dyn-hero-img" alt="Destaque Premium" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO 2: SOBRE NÓS (Estilo Editorial) -->
+    <section class="about-section section-padding" id="sobre">
+        <div class="container">
+            <span class="editorial-subtitle">A Nossa História</span>
+            <div class="about-grid">
+                <div class="about-text-panel">
+                    <h2 class="editorial-title">O Segredo Mora na Paixão pelo Detalhe</h2>
+                    <p class="about-paragraph" id="dyn-about-p1">Carregando manifesto institucional da marca...</p>
+                    <p class="about-paragraph" style="font-size:15px; opacity:0.8;">Cada elemento do nosso espaço — desde a escolha das matérias-primas até à cadência do atendimento — foi arquitetado para criar um refúgio de tranquilidade e excelência urbana.</p>
+                </div>
+                <div class="hero-image-frame" style="height: 400px;">
+                    <img src="" id="dyn-about-img" alt="Produção e Detalhe" loading="lazy">
                 </div>
             </div>
-        </aside>
+        </div>
+    </section>
 
-        <!-- COLUNA DIREITA: TRABALHO INTERATIVO E MENUS COM ESTRELAS -->
-        <main class="content-workspace">
-            
-            <!-- Barra de Navegação por Abas -->
-            <nav class="tabs-nav">
-                <div class="tab-trigger active" id="trigger-menu" onclick="alternarAba('screen-menu')">Menu / Serviços</div>
-                <div class="tab-trigger" id="trigger-booking" onclick="alternarAba('screen-booking')">Marcações</div>
-                <div class="tab-trigger" id="trigger-space" onclick="alternarAba('screen-space')">Localização</div>
-            </nav>
+    <!-- SECÇÃO 3: O MENU COM IMAGENS E ESTRELAS -->
+    <section class="menu-section section-padding" id="menu">
+        <div class="container">
+            <span class="editorial-subtitle">Catálogo de Assinatura</span>
+            <h2 class="editorial-title">Escolha a Sua Experiência</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;" class="sans">Selecione uma opção abaixo para atualizar dinamicamente a sua ficha de reserva técnica.</p>
 
-            <!-- ABA 1: CATÁLOGO DINÂMICO COM IMAGENS DE COMIDA E RATINGS -->
-            <section class="workspace-card active" id="screen-menu">
-                <div class="section-header">
-                    <h2 class="section-title">Nossas Especialidades</h2>
-                    <p class="section-subtitle">Toque numa opção para simular e escolher o seu serviço</p>
+            <div class="menu-architecture" id="dyn-menu-container">
+                <!-- Serviços injetados de forma limpa por JavaScript -->
+            </div>
+
+            <!-- Faturação Dinâmica Incorporada -->
+            <div class="billing-sticky-bar">
+                <div class="billing-info">
+                    <text>Valor da Opção Selecionada</text>
+                    <div class="total-val" id="dyn-total-label">0.00€</div>
                 </div>
+                <a href="#marcar" class="btn-prime">Agendar Agora</a>
+            </div>
+        </div>
+    </section>
 
-                <div class="services-grid" id="dyn-services-container">
-                    <!-- Injetado via JavaScript de forma instantânea -->
-                </div>
+    <!-- SECÇÃO 4: MARCAÇÃO INTEGRADA -->
+    <section class="booking-section section-padding" id="marcar">
+        <div class="container">
+            <div style="text-align: center;">
+                <span class="editorial-subtitle">Reserva Digital</span>
+                <h2 class="editorial-title">Garanta o Seu Lugar</h2>
+            </div>
 
-                <div class="checkout-summary">
-                    <text>Subtotal Selecionado</text>
-                    <div class="total-price" id="dyn-total-label">0.00€</div>
-                </div>
-                
-                <button class="btn-luxury-action" style="margin-top: 25px;" onclick="alternarAba('screen-booking')">Prosseguir para Agendamento</button>
-            </section>
-
-            <!-- ABA 2: FORMULÁRIO DE MARCAÇÃO WHATSAPP -->
-            <section class="workspace-card" id="screen-booking">
-                <div class="section-header">
-                    <h2 class="section-title">Agendamento de Mesa / Cadeira</h2>
-                    <p class="section-subtitle">Reserve o seu momento de forma totalmente digital</p>
-                </div>
-
+            <div class="booking-box">
                 <div class="form-wrapper">
-                    <div class="input-block">
-                        <label>Opção Escolhida</label>
-                        <select class="input-element" id="f-service-select" onchange="sincronizarDropdownParaCard()"></select>
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label>Experiência / Serviço Pretendido</label>
+                            <select class="form-input" id="f-service-select" onchange="sincronizarDropdownParaCard()"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Data Preferencial</label>
+                            <input type="date" class="form-input" id="f-date-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Horário de Atendimento</label>
+                            <select class="form-input" id="f-hour-select">
+                                <option>12:30</option><option>13:30</option><option>14:30</option>
+                                <option>19:30</option><option>21:00</option><option>22:30</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="input-block">
-                        <label>Escolha a Data</label>
-                        <input type="date" class="input-element" id="f-date-input">
-                    </div>
-                    <div class="input-block">
-                        <label>Horário Pretendido</label>
-                        <select class="input-element" id="f-hour-select">
-                            <option>12:30</option><option>14:00</option><option>19:30</option>
-                            <option>21:00</option><option>22:30</option>
-                        </select>
-                    </div>
-
-                    <button class="btn-luxury-action" style="margin-top: 15px;" onclick="enviarPedidoWhatsApp()">Submeter Reserva via WhatsApp</button>
+                    <button class="btn-prime" style="width: 100%; text-align: center; border: none; cursor: pointer;" onclick="enviarPedidoWhatsApp()">Submeter Pedido via WhatsApp</button>
                 </div>
 
-                <div class="highlights-container">
-                    <div class="highlight-mini-box">
-                        <h5>Aviso de Tolerância</h5>
-                        <p>Garantimos a mesa ou cadeira selecionada até 15 minutos após o horário marcado.</p>
+                <!-- Módulos Adicionais de Informação -->
+                <div class="info-cards-row">
+                    <div class="info-mini-card">
+                        <h5>Política de Pontualidade</h5>
+                        <p>Resguardamos a exclusividade da sua mesa ou cadeira por um período máximo de 15 minutos.</p>
                     </div>
-                    <div class="highlight-mini-box">
-                        <h5>Pedidos Especiais</h5>
-                        <p>Restrições alimentares ou pedidos específicos podem ser detalhados no WhatsApp.</p>
+                    <div class="info-mini-card">
+                        <h5>Apoio Personalizado</h5>
+                        <p>Necessita de um evento corporativo ou alteração cirúrgica? Contacte-nos diretamente.</p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+    </section>
 
-            <!-- ABA 3: GOOGLE MAPS LAZY-LOADED -->
-            <section class="workspace-card" id="screen-space">
-                <div class="section-header">
-                    <h2 class="section-title">Onde Estamos Localizados</h2>
-                    <p class="section-subtitle" id="dyn-address-label">A ler morada oficial corporativa...</p>
+    <!-- SECÇÃO 5: LOCALIZAÇÃO -->
+    <section class="maps-section section-padding" id="onde">
+        <div class="container">
+            <span class="editorial-subtitle">Localização</span>
+            <h2 class="editorial-title">Venha Visitar-nos</h2>
+            
+            <div class="maps-grid">
+                <div class="maps-details-panel">
+                    <div>
+                        <div class="contact-entry">
+                            <h5>A Nossa Morada</h5>
+                            <p id="dyn-address-txt">Carregando localização das credenciais...</p>
+                        </div>
+                        <div class="contact-entry">
+                            <h5>Horário de Portas</h5>
+                            <p>Terça a Sábado: 12:00h às 23:00h</p>
+                            <p style="opacity: 0.6;">Domingo e Segunda: Encerrado</p>
+                        </div>
+                    </div>
+                    <div class="contact-entry" style="margin-bottom: 0;">
+                        <h5>Contacto Direto</h5>
+                        <p>Atendimento Geral Protegido</p>
+                    </div>
                 </div>
-
-                <div class="map-wrapper-box" id="dyn-map-lazy-holder">
-                    <div style="padding:170px 0; text-align:center; font-size:12px; opacity:0.3; letter-spacing:2px; text-transform:uppercase;">A carregar mapa interativo...</div>
+                <div class="map-iframe-container" id="dyn-map-holder">
+                    <div style="padding:200px 0; text-align:center; font-size:12px; opacity:0.4; letter-spacing:2px; text-transform:uppercase;">A processar coordenadas geográficas...</div>
                 </div>
-            </section>
+            </div>
+        </div>
+    </section>
 
-        </main>
-
-        <footer class="novapixel-footer">
-            Desenvolvido por NovaPixel &copy; 2026 &bull; Todos os direitos reservados.
-        </footer>
-    </div>
+    <!-- FOOTER -->
+    <footer class="luxury-footer">
+        Atelier Digital &bull; Desenvolvido por NovaPixel &copy; 2026
+    </footer>
 
     <script>
-        // 1. Descodificação Segura dos Parâmetros da URL
+        // 1. Extração de Metadados e Tokens da URL
         const paramsUrl = new URLSearchParams(window.location.search);
         const businessName = paramsUrl.get('n') || "Conceito Exclusivo";
         const tokenCriptografado = paramsUrl.get('v');
@@ -375,111 +367,115 @@
                     bPhone = segmentos[1];
                     bAddress = segmentos[3];
                 }
-            } catch (e) { console.error("Erro na leitura encriptada."); }
+            } catch (e) { console.error("Falha na leitura segura dos tokens."); }
         }
 
-        // Atualizar textos base institucionais
-        document.getElementById('dyn-main-name').innerText = businessName;
-        document.getElementById('dyn-address-label').innerText = bAddress;
+        // Injeção primária de dados
+        document.getElementById('dyn-logo-name').innerHTML = `${businessName}<span>.</span>`;
+        document.getElementById('dyn-main-title').innerText = businessName;
+        document.getElementById('dyn-address-txt').innerText = bAddress;
         document.getElementById('f-date-input').valueAsDate = new Date();
 
-        // 2. Base de Dados Estética, de Imagens Reais e de Ratings com Estrelas
+        // 2. Base de Dados Temática de Imagens Editoriais Claras e Ratings de Estrelas
         const baseDeTemas = {
             restaurante: {
-                slogan: "Alta Gastronomia & Cozinha de Autor",
-                heroImg: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80", // Foto de Restaurante de Luxo
-                story: `O projeto gastronómico da ${businessName} foi desenhado para evocar sensações únicas através do paladar. Orientados pelo respeito absoluto à sazonalidade e frescura dos ingredientes, oferecemos menus de autor sofisticados com uma apresentação impecável.`,
+                sloganTop: "Alta Gastronomia & Receitas de Autor",
+                heroImg: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1000&q=80", // Sala de restaurante clara e luxuosa
+                aboutImg: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80", // Cozinha artesanal cuidada
+                aboutText: `A ${businessName} nasceu do desejo de redefinir o conceito de alta gastronomia independente. Inspirados pela herança culinária e motivados pela precisão da cozinha vanguardista, oferecemos uma experiência sensorial completa, onde cada prato conta uma história de respeito absoluto ao produtor local.`,
                 servicos: [
                     { 
-                        id: "r1", nome: "Menu Degustação Signature", 
-                        desc: "Percurso gourmet completo em 3 atos planeado pelo Chef.", 
-                        preco: 29.00, nota: "5.0", estrelas: "★★★★★", avaliacoes: 142,
+                        id: "r1", nome: "Menu de Degustação Signature", 
+                        desc: "Experiência gourmet completa em 3 atos desenhada pelo Chef executivo.", 
+                        preco: 29.00, nota: "5.0", estrelas: "★★★★★", avaliacoes: 168,
+                        img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=200&q=80"
+                    },
+                    { 
+                        id: "r2", nome: "Lombo de Linhaça ao Molho de Trufas", 
+                        desc: "Corte nobre assado lentamente, esmagada rústica e redução de cogumelos bravos.", 
+                        preco: 19.50, nota: "4.9", estrelas: "★★★★★", avaliacoes: 124,
                         img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=200&q=80"
                     },
                     { 
-                        id: "r2", nome: "Filete Premium ao Molho de Trufas", 
-                        desc: "Corte nobre grelhado, esmagada artesanal e infusão trufada.", 
-                        preco: 19.50, nota: "4.9", estrelas: "★★★★★", avaliacoes: 98,
-                        img: "https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=200&q=80"
-                    },
-                    { 
-                        id: "r3", nome: "Sobremesa Texturas de Cacau", 
-                        desc: "Ganache belga aquecida, crocante folhado e fava tonka.", 
-                        preco: 7.50, nota: "4.8", estrelas: "★★★★☆", avaliacoes: 76,
+                        id: "r3", nome: "Mil-Folhas com Texturas de Cacau", 
+                        desc: "Massa folhada artesanal, creme de chocolate belga morno e fava de tonka.", 
+                        preco: 7.50, nota: "4.8", estrelas: "★★★★☆", avaliacoes: 92,
                         img: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=200&q=80"
                     }
                 ]
             },
             barbearia: {
-                slogan: "Corte, Toalha Quente & Visagismo",
-                heroImg: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80", // Foto de Barbearia Vintage de Luxo
-                story: `Na ${businessName}, aliamos a arte tradicional da barbearia de culto às exigências de imagem do homem moderno. Disfrute de um ambiente industrial reservado com atendimento personalizado e técnicas avançadas de visagismo.`,
+                sloganTop: "Corte Alfaiate & Visagismo Avançado",
+                heroImg: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1000&q=80", // Barbearia moderna, clara e clean
+                aboutImg: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80", // Barbearia detalhe
+                aboutText: `Na ${businessName}, a barbearia clássica é elevada ao estatuto de atelier estético. Criámos um ecossistema luminoso, focado no visagismo de alta precisão e no conforto do cavalheiro contemporâneo, garantindo que cada corte seja uma obra sob medida.`,
                 servicos: [
                     { 
                         id: "b1", nome: "Corte de Cabelo Executivo", 
-                        desc: "Lavagem terapêutica, corte à tesoura e estilização pomada mate.", 
-                        preco: 18.00, nota: "4.9", estrelas: "★★★★★", avaliacoes: 215,
+                        desc: "Estudo de simetria facial, lavagem capilar com massagem e finalização de alta fixação.", 
+                        preco: 18.00, nota: "4.9", estrelas: "★★★★★", avaliacoes: 245,
                         img: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=200&q=80"
                     },
                     { 
-                        id: "b2", nome: "Ritual Barba Real Navalha", 
-                        desc: "Toalha quente a vapor, óleos essenciais e massagem facial.", 
-                        preco: 14.00, nota: "5.0", estrelas: "★★★★★", avaliacoes: 184,
+                        id: "b2", nome: "Barba de Culto com Toalha Quente", 
+                        desc: "Abertura de poros por vaporização botânica, navalha tradicional e bálsamo regenerador.", 
+                        preco: 14.00, nota: "5.0", estrelas: "★★★★★", avaliacoes: 198,
                         img: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=200&q=80"
                     },
                     { 
-                        id: "b3", nome: "Terapia Capilar Purificante", 
-                        desc: "Esfoliação ativa do couro cabeludo e aplicação antiqueda.", 
-                        preco: 10.00, nota: "4.7", estrelas: "★★★★☆", avaliacoes: 53,
+                        id: "b3", nome: "Tratamento Capilar Purificante", 
+                        desc: "Dermo-esfoliação ativa do couro cabeludo contra a fadiga e tónico estimulante.", 
+                        preco: 10.00, nota: "4.7", estrelas: "★★★★☆", avaliacoes: 67,
                         img: "https://images.unsplash.com/photo-1535406208535-1429839cfd13?auto=format&fit=crop&w=200&q=80"
                     }
                 ]
             }
         };
 
-        // Ativar configurações do tema correspondente
+        // Ativação do Tema e Textos Direcionados
         const configAtiva = baseDeTemas[bType] || baseDeTemas.restaurante;
         document.getElementById('app-root-viewport').className = `theme-${bType}`;
-        document.getElementById('dyn-slogan').innerText = configAtiva.slogan;
-        document.getElementById('dyn-story-paragraph').innerText = configAtiva.story;
-        document.getElementById('dyn-sidebar-img').src = configAtiva.heroImg;
+        document.getElementById('dyn-slogan-top').innerText = configAtiva.sloganTop;
+        document.getElementById('dyn-about-p1').innerText = configAtiva.aboutText;
+        document.getElementById('dyn-hero-img').src = configAtiva.heroImg;
+        document.getElementById('dyn-about-img').src = configAtiva.aboutImg;
 
-        // Renderização Dinâmica dos Pratos/Serviços com Imagens e Notas de Estrelas
-        let gridHTML = "";
+        // Renderização da Lista Horizontal/Vertical do Catálogo
+        let menuHTML = "";
         let comboHTML = "";
         
         configAtiva.servicos.forEach((s, idx) => {
             const isSelected = idx === 0 ? "selected" : "";
-            gridHTML += `
-                <div class="service-item-card ${isSelected}" id="card-id-${s.id}" onclick="selecionarServicoExpress('${s.id}', ${s.preco})">
-                    <div class="service-img-wrapper">
+            menuHTML += `
+                <div class="menu-item-row ${isSelected}" id="card-id-${s.id}" onclick="selecionarServicoExpress('${s.id}', ${s.preco})">
+                    <div class="menu-item-img">
                         <img src="${s.img}" alt="${s.nome}" loading="lazy">
                     </div>
-                    <div class="service-info">
+                    <div class="menu-item-details">
                         <h4>${s.nome}</h4>
                         <p>${s.desc}</p>
-                        <div class="service-rating">
-                            <span class="stars-gold">${s.estrelas}</span>
+                        <div class="rating-badge">
+                            <span class="stars">${s.estrelas}</span>
                             <span>${s.nota}</span>
-                            <span class="review-count">(${s.avaliacoes} críticas)</span>
+                            <span class="count">(${s.avaliacoes} avaliações)</span>
                         </div>
                     </div>
-                    <div class="service-price">${s.preco.toFixed(2)}€</div>
+                    <div class="menu-item-price">${s.preco.toFixed(2)}€</div>
                 </div>
             `;
             comboHTML += `<option value="${s.nome}" data-val="${s.preco}" id="opt-id-${s.id}">${s.nome} — ${s.preco.toFixed(2)}€</option>`;
         });
         
-        document.getElementById('dyn-services-container').innerHTML = gridHTML;
+        document.getElementById('dyn-menu-container').innerHTML = menuHTML;
         document.getElementById('f-service-select').innerHTML = comboHTML;
 
-        // Preço Inicial Configurado
+        // Estado do Preço Corrente
         let precoSelecionado = configAtiva.servicos[0].preco;
         document.getElementById('dyn-total-label').innerText = `${precoSelecionado.toFixed(2)}€`;
 
-        // 3. Mecânica de Sincronização e Preço Dinâmico
+        // 3. Funções Analíticas de Seleção e Sincronismo
         function selecionarServicoExpress(id, preco) {
-            document.querySelectorAll('.service-item-card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('.menu-item-row').forEach(c => c.classList.remove('selected'));
             document.getElementById(`card-id-${id}`).classList.add('selected');
             document.getElementById(`opt-id-${id}`).selected = true;
             
@@ -493,7 +489,7 @@
             const originalId = op.id.replace('opt-id-', '');
             const preco = parseFloat(op.getAttribute('data-val'));
 
-            document.querySelectorAll('.service-item-card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('.menu-item-row').forEach(c => c.classList.remove('selected'));
             if(document.getElementById(`card-id-${originalId}`)) {
                 document.getElementById(`card-id-${originalId}`).classList.add('selected');
             }
@@ -501,27 +497,20 @@
             document.getElementById('dyn-total-label').innerText = `${preco.toFixed(2)}€`;
         }
 
-        // 4. Gestor de Abas Nativo e Lazy Loading Isolado de Mapas
-        let mapaInjetado = false;
-        function alternarAba(idAlvo) {
-            document.querySelectorAll('.workspace-card').forEach(card => card.classList.remove('active'));
-            document.querySelectorAll('.tab-trigger').forEach(trigger => trigger.classList.remove('active'));
+        // 4. Carregamento Inteligente Geográfico (Intersection Observer para Performance Extrema)
+        const observerMap = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    document.getElementById('dyn-map-holder').innerHTML = `
+                        <iframe src="https://maps.google.com/maps?q=${encodeURIComponent(bAddress)}&t=&z=15&ie=UTF-8&iwloc=&output=embed"></iframe>
+                    `;
+                    observerMap.disconnect();
+                }
+            });
+        }, { rootMargin: "200px" });
+        observerMap.observe(document.getElementById('dyn-map-holder'));
 
-            document.getElementById(idAlvo).classList.add('active');
-            
-            const mapeamentoAbas = { 'screen-menu': 'trigger-menu', 'screen-booking': 'trigger-booking', 'screen-space': 'trigger-space' };
-            document.getElementById(mapeamentoAbas[idAlvo]).classList.add('active');
-
-            // O mapa só é processado se e quando o cliente clicar na aba "Localização"
-            if(idAlvo === 'screen-space' && !mapaInjetado) {
-                document.getElementById('dyn-map-lazy-holder').innerHTML = `
-                    <iframe src="https://maps.google.com/maps?q=${encodeURIComponent(bAddress)}&t=&z=16&ie=UTF-8&iwloc=&output=embed"></iframe>
-                `;
-                mapaInjetado = true;
-            }
-        }
-
-        // 5. Motor de Envio Automatizado para o WhatsApp
+        // 5. Motor de Empacotamento de Envio do WhatsApp
         function enviarPedidoWhatsApp() {
             const select = document.getElementById('f-service-select');
             const servicoNome = select.options[select.selectedIndex].text.split('—')[0].trim();
@@ -534,11 +523,11 @@
                 if(blocos.length === 3) dataFormatada = `${blocos[2]}/${blocos[1]}/${blocos[0]}`;
             }
 
-            const textoMensagem = `Olá! Acedi à vossa plataforma premium desenvolvida pela NovaPixel e pretendo efetuar uma reserva:\n\n` +
-                                 `• *Opção Selecionada:* ${servicoNome}\n` +
+            const textoMensagem = `Olá! Acedi à vossa Landing Page Premium e pretendo agendar uma vaga:\n\n` +
+                                 `• *Experiência:* ${servicoNome}\n` +
                                  `• *Data:* ${dataFormatada}\n` +
                                  `• *Horário:* ${horaNome}\n\n` +
-                                 `Agradeço desde já a confirmação de vaga corporativa da vossa parte.`;
+                                 `Agradeço a vossa confirmação.`;
 
             const linkFinal = `https://wa.me/351${bPhone}?text=${encodeURIComponent(textoMensagem)}`;
             window.open(linkFinal, '_blank');
