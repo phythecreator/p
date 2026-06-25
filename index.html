@@ -1,256 +1,1494 @@
-<!DOCTYPE html>
+html_content = """<!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaPixel | Protótipo Exclusivo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <title>NovaPixel | Experiência Digital Premium</title>
+    
+    <!-- Tipografia de Luxo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
     
     <style>
+        /* ==========================================================================
+           1. VARIÁVEIS E RESET (LIGHT MODE PREMIUM)
+           ========================================================================== */
         :root {
-            --accent-color: #bfa15f; /* Dinâmico */
-            --bg-light: #ffffff;
-            --bg-offwhite: #f8f8f8;
-            --text-dark: #1a1a1a;
-            --text-gray: #666666;
+            --cor-primaria: #bc9c6c; /* Será alterada via JS */
+            --cor-secundaria: #111111;
+            --cor-fundo: #ffffff;
+            --cor-fundo-alt: #f9f9f9;
+            --cor-fundo-suave: #f4f4f4;
+            --texto-principal: #1a1a1a;
+            --texto-secundario: #666666;
+            --texto-claro: #999999;
+            --borda-leve: #eaeaea;
+            --transicao: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --sombra-leve: 0 10px 30px rgba(0, 0, 0, 0.04);
+            --sombra-forte: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --container-width: 1280px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-        body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        html {
+            scroll-behavior: smooth;
+        }
 
-        /* --- HEADER NAVBAR --- */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--texto-principal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--cor-secundaria);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transicao);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* ==========================================================================
+           2. NAVEGAÇÃO E HEADER
+           ========================================================================== */
         header {
-            position: absolute; width: 100%; top: 0; z-index: 10;
-            padding: 30px 50px; display: flex; justify-content: space-between; align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 25px 0;
+            transition: var(--transicao);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: #fff; letter-spacing: 2px; text-transform: uppercase; }
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent-color); }
 
-        /* --- HERO SECTION FULL WIDTH --- */
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: var(--sombra-leve);
+            border-bottom: 1px solid var(--borda-leve);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        header.scrolled .logo {
+            color: var(--cor-secundaria);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        header.scrolled .nav-links a {
+            color: var(--texto-secundario);
+        }
+
+        .nav-links a:hover, header.scrolled .nav-links a:hover {
+            color: var(--cor-primaria);
+        }
+
+        .btn-nav {
+            padding: 12px 24px;
+            background-color: var(--cor-primaria);
+            color: #ffffff !important;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        .btn-nav:hover {
+            background-color: #ffffff !important;
+            color: var(--cor-primaria) !important;
+        }
+
+        /* Menu Mobile */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: #ffffff;
+            margin: 5px 0;
+            transition: var(--transicao);
+        }
+
+        header.scrolled .mobile-menu-btn span {
+            background-color: var(--cor-secundaria);
+        }
+
+        /* ==========================================================================
+           3. HERO SECTION (FULL SCREEN)
+           ========================================================================== */
         .hero {
-            height: 90vh; width: 100%;
-            background-color: #111;
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            position: relative; text-align: center; padding: 0 20px;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            text-align: center;
         }
+
         .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
         }
-        .hero-content { position: relative; z-index: 2; max-width: 800px; }
-        .hero-badge {
-            font-size: 12px; letter-spacing: 4px; color: var(--accent-color);
-            text-transform: uppercase; margin-bottom: 20px; display: block; font-weight: 600;
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 0.5s;
         }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .badge-premium {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--cor-primaria);
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+        }
+
         .hero h1 {
-            font-family: 'Playfair Display', serif; font-size: 65px; color: #fff;
-            line-height: 1.1; margin-bottom: 20px; font-weight: 600;
+            font-size: 80px;
+            color: #ffffff;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
         }
-        .hero p { color: #ddd; font-size: 16px; font-weight: 300; line-height: 1.6; margin-bottom: 40px; }
-        .btn-gold {
-            display: inline-block; background-color: var(--accent-color); color: #fff;
-            padding: 16px 40px; text-decoration: none; font-size: 12px; font-weight: 600;
-            letter-spacing: 2px; text-transform: uppercase; border-radius: 2px; transition: 0.3s;
-        }
-        .btn-gold:hover { background-color: #fff; color: var(--text-dark); }
 
-        /* --- SPLIT LAYOUT (TEXTO / IMAGEM) --- */
-        .split-section { display: flex; flex-wrap: wrap; width: 100%; background-color: var(--bg-light); }
-        .split-text { flex: 1; min-width: 300px; padding: 100px 8%; display: flex; flex-direction: column; justify-content: center; }
-        .split-image { flex: 1; min-width: 300px; min-height: 500px; background-size: cover; background-position: center; }
-        
-        .split-text h2 { font-family: 'Playfair Display', serif; font-size: 42px; margin-bottom: 25px; color: var(--text-dark); }
-        .split-text p { color: var(--text-gray); font-size: 15px; line-height: 1.8; margin-bottom: 20px; text-align: justify; }
-
-        /* --- MÓDULO DE RESERVAS INTERATIVO --- */
-        .booking-section { padding: 100px 5%; background-color: var(--bg-offwhite); text-align: center; }
-        .booking-section h2 { font-family: 'Playfair Display', serif; font-size: 38px; margin-bottom: 10px; }
-        .booking-section p { color: var(--text-gray); font-size: 14px; margin-bottom: 50px; }
-        
-        .booking-card {
-            background: #fff; max-width: 800px; margin: 0 auto; padding: 50px;
-            border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); text-align: left;
+        .hero p {
+            font-size: 18px;
+            color: #eeeeee;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto 45px auto;
+            line-height: 1.8;
         }
-        .step-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dark); margin-bottom: 15px; display: block; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        
-        .options-grid { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 35px; }
-        .option-btn {
-            padding: 12px 25px; border: 1px solid #ddd; background: #fff; color: var(--text-gray);
-            font-size: 13px; font-weight: 500; cursor: pointer; transition: 0.3s; border-radius: 2px;
-        }
-        .option-btn.active { border-color: var(--accent-color); background: var(--accent-color); color: #fff; }
-        
-        .btn-dark {
-            display: block; width: 100%; text-align: center; background-color: var(--text-dark); color: #fff;
-            padding: 18px; text-decoration: none; font-size: 12px; font-weight: 600;
-            letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; margin-top: 20px;
-        }
-        .btn-dark:hover { background-color: var(--accent-color); }
 
-        /* --- LOCALIZAÇÃO & FOOTER --- */
-        .location-section { padding: 100px 5%; background-color: var(--bg-light); text-align: center; }
-        .location-section h2 { font-family: 'Playfair Display', serif; font-size: 38px; margin-bottom: 40px; }
-        
-        .map-container { width: 100%; max-width: 1000px; height: 400px; margin: 0 auto; background: #eee; }
-        
-        footer { background-color: var(--text-dark); color: #fff; padding: 60px 20px; text-align: center; }
-        .footer-logo { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 20px; }
-        .footer-info { font-size: 13px; color: #aaa; margin-bottom: 10px; letter-spacing: 1px; }
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
 
-        /* --- RESPONSIVIDADE --- */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 40px;
+            background-color: var(--cor-primaria);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            border: 1px solid var(--cor-primaria);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--cor-primaria);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 40px;
+            background-color: transparent;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            border: 1px solid #ffffff;
+        }
+
+        .btn-outline:hover {
+            background-color: #ffffff;
+            color: var(--cor-secundaria);
+        }
+
+        /* ==========================================================================
+           4. INTRODUÇÃO / SOBRE NÓS
+           ========================================================================== */
+        .section-padding {
+            padding: 120px 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-images {
+            position: relative;
+            height: 600px;
+        }
+
+        .img-main {
+            width: 80%;
+            height: 85%;
+            object-fit: cover;
+            border-radius: 4px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            box-shadow: var(--sombra-forte);
+        }
+
+        .img-overlap {
+            width: 55%;
+            height: 60%;
+            object-fit: cover;
+            border-radius: 4px;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            border: 10px solid var(--cor-fundo);
+            box-shadow: var(--sombra-forte);
+        }
+
+        .section-subtitle {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--cor-primaria);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 46px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 25px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: var(--cor-primaria);
+        }
+
+        .text-center .section-title::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about-text p {
+            font-size: 15px;
+            color: var(--texto-secundario);
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 40px;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--cor-secundaria);
+        }
+
+        .features-list svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--cor-primaria);
+            margin-right: 15px;
+        }
+
+        /* ==========================================================================
+           5. O NOSSO MENU / SERVIÇOS TIPO EMENTA LUXO
+           ========================================================================== */
+        .menu-section {
+            background-color: var(--cor-fundo-alt);
+        }
+
+        .menu-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 70px auto;
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .menu-cat-btn {
+            background: transparent;
+            border: none;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--texto-claro);
+            cursor: pointer;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+            transition: var(--transicao);
+        }
+
+        .menu-cat-btn.active, .menu-cat-btn:hover {
+            color: var(--cor-secundaria);
+            border-bottom-color: var(--cor-primaria);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 80px;
+            row-gap: 40px;
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .menu-item-header::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 0;
+            width: 100%;
+            border-bottom: 1px dotted var(--borda-leve);
+            z-index: 1;
+        }
+
+        .item-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--cor-secundaria);
+            background-color: var(--cor-fundo-alt);
+            padding-right: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .item-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--cor-primaria);
+            background-color: var(--cor-fundo-alt);
+            padding-left: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .item-desc {
+            font-size: 13px;
+            color: var(--texto-secundario);
+            max-width: 85%;
+        }
+
+        /* ==========================================================================
+           6. GALERIA VISUAL (MASONRY SIMULADO)
+           ========================================================================== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            cursor: pointer;
+            aspect-ratio: 4/5;
+        }
+
+        .gallery-item:nth-child(2), .gallery-item:nth-child(5) {
+            aspect-ratio: 1/1; /* Variação para quebrar a simetria chata */
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(17, 17, 17, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transicao);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .icon-zoom {
+            width: 40px;
+            height: 40px;
+            fill: #ffffff;
+        }
+
+        /* ==========================================================================
+           7. TESTEMUNHOS / AVALIAÇÕES
+           ========================================================================== */
+        .reviews-section {
+            background-color: var(--cor-secundaria);
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .reviews-section .section-title, .reviews-section .section-subtitle {
+            color: #ffffff;
+        }
+
+        .reviews-section .section-subtitle {
+            color: var(--cor-primaria);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .review-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            text-align: left;
+            position: relative;
+        }
+
+        .icon-quote {
+            width: 40px;
+            height: 40px;
+            fill: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            top: 30px;
+            right: 30px;
+        }
+
+        .stars {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .stars svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--cor-primaria);
+        }
+
+        .review-text {
+            font-size: 14px;
+            font-style: italic;
+            color: #dddddd;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .reviewer-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--cor-primaria);
+        }
+
+        .reviewer-info h4 {
+            color: #ffffff;
+            font-size: 15px;
+            margin-bottom: 2px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .reviewer-info span {
+            font-size: 11px;
+            color: var(--cor-primaria);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================================================
+           8. SISTEMA DE AGENDAMENTO (MÓDULO COMPLEXO)
+           ========================================================================== */
+        .booking-section {
+            background-color: var(--cor-fundo-suave);
+        }
+
+        .booking-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: var(--sombra-forte);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--borda-leve);
+        }
+
+        .booking-steps-nav {
+            display: flex;
+            background-color: var(--cor-fundo-alt);
+            border-bottom: 1px solid var(--borda-leve);
+        }
+
+        .step-nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--texto-claro);
+            border-right: 1px solid var(--borda-leve);
+            position: relative;
+        }
+
+        .step-nav-item.active {
+            color: var(--cor-primaria);
+            background-color: #ffffff;
+        }
+
+        .step-nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--cor-primaria);
+        }
+
+        .booking-content {
+            padding: 50px;
+        }
+
+        .booking-step {
+            display: none;
+        }
+
+        .booking-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            font-size: 22px;
+            margin-bottom: 30px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Grid de Seleção (Serviços e Staff) */
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .select-card {
+            border: 1px solid var(--borda-leve);
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transicao);
+            background: #ffffff;
+        }
+
+        .select-card:hover {
+            border-color: var(--cor-primaria);
+            box-shadow: var(--sombra-leve);
+        }
+
+        .select-card.selected {
+            border-color: var(--cor-primaria);
+            background-color: var(--cor-primaria);
+            color: #ffffff;
+        }
+
+        .select-card.selected h4, .select-card.selected p {
+            color: #ffffff;
+        }
+
+        .select-card-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px auto;
+        }
+
+        .select-card h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .select-card p {
+            font-size: 12px;
+            color: var(--texto-secundario);
+        }
+
+        /* Formulário Cliente */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .input-group.full-width {
+            grid-column: span 2;
+        }
+
+        .input-group label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            color: var(--texto-secundario);
+        }
+
+        .input-group input, .input-group textarea {
+            padding: 15px;
+            border: 1px solid var(--borda-leve);
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            background-color: var(--cor-fundo-alt);
+            transition: var(--transicao);
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: var(--cor-primaria);
+            background-color: #ffffff;
+        }
+
+        .booking-footer {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--borda-leve);
+            padding-top: 30px;
+        }
+
+        /* ==========================================================================
+           9. FOOTER E INFORMAÇÕES LOCAIS
+           ========================================================================== */
+        footer {
+            background-color: var(--cor-secundaria);
+            color: #ffffff;
+            padding: 80px 0 30px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-about h3 {
+            font-size: 28px;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .footer-about p {
+            color: #aaaaaa;
+            font-size: 14px;
+            max-width: 400px;
+            margin-bottom: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-link:hover {
+            background-color: var(--cor-primaria);
+        }
+
+        .social-link svg {
+            width: 16px;
+            height: 16px;
+            fill: #ffffff;
+        }
+
+        .footer-title {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--cor-primaria);
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            color: #aaaaaa;
+            font-size: 13px;
+        }
+
+        .footer-contact svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--cor-primaria);
+            margin-right: 15px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .footer-hours li {
+            display: flex;
+            justify-content: space-between;
+            color: #aaaaaa;
+            font-size: 13px;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 11px;
+            color: #777777;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .footer-bottom span {
+            color: var(--cor-primaria);
+        }
+
+        /* ==========================================================================
+           10. RESPONSIVIDADE MAXIMIZADA
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 60px; }
+            .about-grid, .menu-grid { gap: 40px; }
+            .section-title { font-size: 36px; }
+        }
+
         @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--cor-secundaria);
+                flex-direction: column;
+                justify-content: center;
+                transition: var(--transicao);
+            }
+            .nav-links.active { right: 0; }
+            .mobile-menu-btn { display: block; z-index: 1001; }
+            
             .hero h1 { font-size: 42px; }
-            header { padding: 20px; justify-content: center; }
-            .nav-links { display: none; }
-            .split-text { padding: 60px 20px; }
-            .booking-card { padding: 30px 20px; }
+            .hero-actions { flex-direction: column; }
+            
+            .about-grid, .menu-grid, .gallery-grid, .reviews-grid, .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-images { height: 400px; margin-bottom: 40px; }
+            
+            .booking-steps-nav { flex-direction: column; display: none; } /* Ocultar nav de passos no mobile */
+            .selection-grid, .form-grid { grid-template-columns: 1fr; }
+            .booking-content { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo" id="logo-text">Espaço.</div>
-        <div class="nav-links">
-            <a href="#conceito">O Conceito</a>
-            <a href="#reservas">Reservas</a>
-            <a href="#localizacao">Contactos</a>
+    <!-- ================= NAVEGAÇÃO ================= -->
+    <header id="header">
+        <div class="nav-container">
+            <a href="#" class="logo" id="logo-text">Nova.</a>
+            <div class="nav-links" id="nav-links">
+                <a href="#sobre">O Conceito</a>
+                <a href="#menu" id="nav-menu-txt">O Menu</a>
+                <a href="#galeria">Galeria</a>
+                <a href="#avaliacoes">Avaliações</a>
+                <a href="#reservas" class="btn-nav">Agendar</a>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </header>
 
-    <section class="hero" id="hero-bg">
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero" id="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1920&q=80');">
         <div class="hero-content">
-            <span class="hero-badge" id="hero-badge">Conceito Exclusivo</span>
-            <h1 id="hero-title">A carregar...</h1>
-            <p id="hero-desc">Estamos a preparar o seu ambiente digital personalizado.</p>
-            <a href="#reservas" class="btn-gold">Testar Agendamento</a>
+            <span class="badge-premium" id="hero-badge">Estudo de Viabilidade Digital</span>
+            <h1 id="hero-title">Experiência Gastronómica Excecional.</h1>
+            <p id="hero-desc">Elevamos a essência do seu espaço físico para uma montra digital de luxo, concebida para maximizar reservas e encantar clientes antes mesmo de entrarem pela porta.</p>
+            <div class="hero-actions">
+                <a href="#reservas" class="btn-primary">Testar Agendamento</a>
+                <a href="#menu" class="btn-outline">Ver Cartão / Menu</a>
+            </div>
         </div>
     </section>
 
-    <section class="split-section" id="conceito">
-        <div class="split-text">
-            <span class="hero-badge" style="color:var(--text-gray);">Visão Digital</span>
-            <h2 id="about-title">Tradição Encontra Inovação</h2>
-            <p id="about-p1">Avaliámos a vossa presença no mercado e desenhámos esta plataforma de raiz. O objetivo é transpor a vossa excelência física para o mundo digital, criando um canal direto, elegante e sem comissões com os vossos clientes.</p>
-            <p id="about-p2">Desde a otimização de marcações até à montra visual dos vossos serviços, tudo foi pensado para maximizar a conversão e elevar a perceção de valor da marca.</p>
+    <!-- ================= SOBRE / CONCEITO ================= -->
+    <section class="section-padding" id="sobre">
+        <div class="container about-grid">
+            <div class="about-images">
+                <img id="about-img-1" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80" alt="Interior" class="img-main">
+                <img id="about-img-2" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=600&q=80" alt="Detalhe" class="img-overlap">
+            </div>
+            <div class="about-text">
+                <span class="section-subtitle">O Padrão de Ouro</span>
+                <h2 class="section-title" id="about-title">A Arte da Hospitalidade e do Sabor.</h2>
+                <p id="about-p1">Construímos este ambiente digital de raiz com um único propósito: refletir a qualidade inegável do vosso serviço. Num mercado saturado por plataformas genéricas e comissões elevadas, a vossa marca merece independência.</p>
+                <p id="about-p2">Através de um design imaculado, navegação fluida e sistemas integrados, transformamos visitantes casuais em clientes fiéis.</p>
+                
+                <ul class="features-list">
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Plataforma 100% Livre de Comissões de Terceiros
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Design Responsivo e Orientado para a Conversão Móvel
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        Gestão Autónoma de Conteúdos e Reservas
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="split-image" id="split-bg"></div>
     </section>
 
-    <section class="booking-section" id="reservas">
-        <h2>Demonstração Interativa</h2>
-        <p>Simule a experiência que o seu cliente terá ao interagir com a plataforma.</p>
-        
-        <div class="booking-card">
-            <span class="step-title">1. Selecione a Experiência</span>
-            <div class="options-grid" id="services-grid"></div>
-
-            <span class="step-title">2. Escolha o Horário</span>
-            <div class="options-grid">
-                <div class="option-btn active" onclick="selectOption(this, '.options-grid:nth-of-type(2)')">12:30</div>
-                <div class="option-btn" onclick="selectOption(this, '.options-grid:nth-of-type(2)')">14:00</div>
-                <div class="option-btn" onclick="selectOption(this, '.options-grid:nth-of-type(2)')">19:30</div>
-                <div class="option-btn" onclick="selectOption(this, '.options-grid:nth-of-type(2)')">21:00</div>
+    <!-- ================= MENU / PREÇÁRIO ================= -->
+    <section class="section-padding menu-section" id="menu">
+        <div class="container">
+            <div class="menu-header">
+                <span class="section-subtitle">A Nossa Oferta</span>
+                <h2 class="section-title text-center" id="menu-title">Descubra as Nossas Especialidades</h2>
+            </div>
+            
+            <div class="menu-categories" id="menu-tabs">
+                <!-- Injetado via JS -->
             </div>
 
-            <a id="btn-call" href="#" class="btn-dark">Confirmar Solicitação</a>
+            <div class="menu-grid" id="menu-items-container">
+                <!-- Injetado via JS -->
+            </div>
         </div>
     </section>
 
-    <section class="location-section" id="localizacao">
-        <h2>Onde Estamos</h2>
-        <div id="map-container" class="map-container"></div>
+    <!-- ================= GALERIA VISUAL ================= -->
+    <section class="section-padding" id="galeria">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-subtitle">O Ambiente</span>
+                <h2 class="section-title">Uma Imagem Vale Mil Palavras</h2>
+            </div>
+            
+            <div class="gallery-grid" id="gallery-container">
+                <!-- Injetado via JS -->
+            </div>
+        </div>
     </section>
 
+    <!-- ================= AVALIAÇÕES ================= -->
+    <section class="section-padding reviews-section" id="avaliacoes">
+        <div class="container">
+            <span class="section-subtitle">Testemunhos</span>
+            <h2 class="section-title text-center">O Que Dizem Sobre Nós</h2>
+            
+            <div class="reviews-grid" id="reviews-container">
+                <!-- Injetado via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= AGENDAMENTO INTERATIVO ================= -->
+    <section class="section-padding booking-section" id="reservas">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 50px;">
+                <span class="section-subtitle">Motor de Reservas</span>
+                <h2 class="section-title">Simulação de Agendamento</h2>
+                <p style="color: var(--texto-secundario); max-width: 600px; margin: 0 auto;">Experiencie o quão simples é para um cliente efetuar uma marcação diretamente no vosso site.</p>
+            </div>
+
+            <div class="booking-container">
+                <div class="booking-steps-nav">
+                    <div class="step-nav-item active" id="nav-step-1">1. Serviço</div>
+                    <div class="step-nav-item" id="nav-step-2">2. Data & Hora</div>
+                    <div class="step-nav-item" id="nav-step-3">3. Detalhes</div>
+                </div>
+
+                <div class="booking-content">
+                    <!-- PASSO 1 -->
+                    <div class="booking-step active" id="step-1">
+                        <h3 class="step-title">O que gostaria de reservar?</h3>
+                        <div class="selection-grid" id="booking-services">
+                            <!-- JS -->
+                        </div>
+                        <div class="booking-footer">
+                            <div></div>
+                            <button class="btn-primary" onclick="nextStep(2)">Continuar →</button>
+                        </div>
+                    </div>
+
+                    <!-- PASSO 2 -->
+                    <div class="booking-step" id="step-2">
+                        <h3 class="step-title">Escolha o horário pretendido</h3>
+                        <div class="form-grid">
+                            <div class="input-group full-width">
+                                <label>Data da Reserva</label>
+                                <input type="date" value="2026-06-30">
+                            </div>
+                        </div>
+                        <h4 style="font-size: 12px; text-transform: uppercase; margin: 20px 0 15px 0; color: var(--texto-claro);">Horários Disponíveis</h4>
+                        <div class="selection-grid" style="grid-template-columns: repeat(4, 1fr);">
+                            <div class="select-card" onclick="selectSlot(this)"><h4>12:30</h4></div>
+                            <div class="select-card" onclick="selectSlot(this)"><h4>13:00</h4></div>
+                            <div class="select-card" onclick="selectSlot(this)"><h4>19:30</h4></div>
+                            <div class="select-card" onclick="selectSlot(this)"><h4>20:00</h4></div>
+                        </div>
+                        <div class="booking-footer">
+                            <button class="btn-outline" style="color:var(--texto-principal); border-color:var(--borda-leve);" onclick="nextStep(1)">← Voltar</button>
+                            <button class="btn-primary" onclick="nextStep(3)">Continuar →</button>
+                        </div>
+                    </div>
+
+                    <!-- PASSO 3 -->
+                    <div class="booking-step" id="step-3">
+                        <h3 class="step-title">Os seus detalhes</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Nome Completo</label>
+                                <input type="text" placeholder="Ex: João Silva">
+                            </div>
+                            <div class="input-group">
+                                <label>Telefone</label>
+                                <input type="tel" placeholder="+351 912 345 678">
+                            </div>
+                            <div class="input-group full-width">
+                                <label>Email</label>
+                                <input type="email" placeholder="joao@email.com">
+                            </div>
+                            <div class="input-group full-width">
+                                <label>Notas Especiais (Opcional)</label>
+                                <textarea rows="3" placeholder="Alergias, pedidos especiais, etc."></textarea>
+                            </div>
+                        </div>
+                        <div class="booking-footer">
+                            <button class="btn-outline" style="color:var(--texto-principal); border-color:var(--borda-leve);" onclick="nextStep(2)">← Voltar</button>
+                            <a id="final-confirm-btn" href="#" class="btn-primary" onclick="alert('Simulação de Reserva Concluída! Numa versão final, isto enviaria um email automático para o gestor e para o cliente.')">Confirmar Reserva ✔</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
     <footer>
-        <div class="footer-logo" id="footer-logo">Espaço.</div>
-        <div class="footer-info" id="footer-loc">📍 Localização</div>
-        <div class="footer-info" id="footer-tel">📞 Telefone</div>
-        <div style="margin-top: 40px; font-size: 10px; letter-spacing: 2px; color: #666; text-transform: uppercase;">Powered by NovaPixel © 2026</div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3 id="footer-logo" class="logo">Nova.</h3>
+                    <p>Onde a excelência do mundo físico encontra a sofisticação do design digital. Um protótipo exclusivo desenvolvido pela NovaPixel.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.975-9.658a1.38 1.38 0 11-2.76 0 1.38 1.38 0 012.76 0z"/></svg></a>
+                        <a href="#" class="social-link"><svg viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.597 1.323-1.324V1.325C24 .597 23.403 0 22.675 0z"/></svg></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Contactos</h4>
+                    <ul class="footer-contact" style="list-style: none;">
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            <span id="txt-location">Morada Institucional de Exemplo, 4000-000 Cidade</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                            <span id="txt-phone">+351 900 000 000</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            <span>contacto@oseuespaco.pt</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Horário</h4>
+                    <ul class="footer-hours" style="list-style: none;">
+                        <li><span>Segunda - Sexta</span> <span>12:00 - 23:00</span></li>
+                        <li><span>Sábado</span> <span>12:30 - 00:00</span></li>
+                        <li><span>Domingo</span> <span>Encerrado</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                &copy; 2026 O Seu Espaço. Protótipo concebido e otimizado por <span>NOVAPIXEL</span>.
+            </div>
+        </div>
     </footer>
 
+    <!-- ================= MOTOR JAVASCRIPT (LÓGICA E DADOS) ================= -->
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const nome = urlParams.get('nome') || 'O Vosso Negócio';
-        const tipo = (urlParams.get('tipo') || 'restaurante').toLowerCase().trim();
-        const tel = urlParams.get('tel') || '';
-        const loc = urlParams.get('loc') || '';
+        // --- 1. Efeitos de Interface (Header Sticky e Mobile) ---
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
 
-        // Preencher Dados Estáticos
-        document.getElementById('logo-text').innerText = nome + ".";
-        document.getElementById('footer-logo').innerText = nome + ".";
-        document.getElementById('hero-title').innerText = nome;
-        if(loc) document.getElementById('footer-loc').innerText = "📍 " + loc;
-        if(tel) {
-            document.getElementById('footer-tel').innerText = "📞 " + tel;
-            document.getElementById('btn-call').href = "tel:" + tel;
+        function toggleMenu() {
+            document.getElementById('nav-links').classList.toggle('active');
         }
 
-        // BASE DE DADOS DE TEMAS DE LUXO (IMAGENS FULL-WIDTH E CORES)
-        const configTemas = {
+        // --- 2. Lógica de Agendamento ---
+        function nextStep(step) {
+            document.querySelectorAll('.booking-step').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.step-nav-item').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById('step-' + step).classList.add('active');
+            document.getElementById('nav-step-' + step).classList.add('active');
+        }
+
+        function selectServiceCard(el) {
+            document.querySelectorAll('#booking-services .select-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function selectSlot(el) {
+            document.querySelectorAll('#step-2 .select-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        // --- 3. DADOS DINÂMICOS (SUPER DETALHADOS) ---
+        const DADOS = {
             restaurante: {
-                cor: "#bc9c6c", // Bronze
-                badge: "Experiência Gastronómica",
-                heroDesc: "Uma viagem sensorial guiada pela excelência e pelos melhores sabores, agora à distância de um clique.",
+                temaColor: "#a93e36", // Vermelho Tinto/Bordeaux
+                heroTitle: "A Excelência do Sabor.",
+                heroDesc: "Deixe-se envolver numa viagem gastronómica única. Criámos este ambiente digital para refletir o rigor, a paixão e a qualidade ímpar da vossa cozinha.",
                 heroImg: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1920&q=80",
-                splitImg: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80",
-                aboutTitle: "A Arte da Hospitalidade",
-                servicos: ["Menu Degustação", "Reserva VIP", "Eventos Privados"]
+                aboutTitle: "A Arte da Alta Gastronomia.",
+                aboutImg1: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80",
+                aboutImg2: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=600&q=80",
+                menuTitle: "A Nossa Ementa",
+                menuCategorias: ["Entradas", "Pratos Principais", "Sobremesas", "Vinhos"],
+                menuItens: [
+                    { nome: "Tártaro de Novilho", preco: "14€", desc: "Com alcaparras, mostarda antiga e gema de ovo curada.", cat: 0 },
+                    { nome: "Camarão Tigre", preco: "18€", desc: "Grelhado com manteiga de alho e ervas finas.", cat: 0 },
+                    { nome: "Bacalhau Confitado", preco: "24€", desc: "Azeite virgem extra, puré de grão e legumes da época.", cat: 1 },
+                    { nome: "Magret de Pato", preco: "26€", desc: "Molho de frutos vermelhos, batata gratinada e espargos.", cat: 1 },
+                    { nome: "Fondant de Chocolate", preco: "9€", desc: "Com gelado de baunilha de Madagáscar e crumble.", cat: 2 },
+                    { nome: "Reserva Douro DOC", preco: "32€", desc: "Tinto encorpado, notas de madeira e frutos pretos.", cat: 3 }
+                ],
+                galeria: [
+                    "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80"
+                ],
+                avaliacoes: [
+                    { nome: "António Costa", texto: "Uma experiência fenomenal do início ao fim. O ambiente criado é de um nível superior e a facilidade de reservar mesa online é incrível.", data: "Há 2 dias", img: "https://randomuser.me/api/portraits/men/32.jpg" },
+                    { nome: "Maria Santos", texto: "A melhor refeição que tive na cidade nos últimos anos. O serviço é impecável e a apresentação dos pratos roça a perfeição artística.", data: "Há 1 semana", img: "https://randomuser.me/api/portraits/women/44.jpg" },
+                    { nome: "João Pedro", texto: "Recomendo vivamente o menu de degustação. Todo o staff é altamente profissional. O portal online facilita imenso a organização.", data: "Há 2 semanas", img: "https://randomuser.me/api/portraits/men/67.jpg" }
+                ],
+                servicosAgendamento: [
+                    { nome: "Reserva de Mesa (Standard)", desc: "Sala principal, até 4 pessoas", img: "https://cdn-icons-png.flaticon.com/512/1973/1973801.png" },
+                    { nome: "Experiência VIP", desc: "Sala privada e menu degustação", img: "https://cdn-icons-png.flaticon.com/512/2857/2857404.png" },
+                    { nome: "Evento Corporate", desc: "Reserva de ala inteira", img: "https://cdn-icons-png.flaticon.com/512/2933/2933116.png" }
+                ]
             },
             barbearia: {
-                cor: "#a67c00", // Dourado
-                badge: "Atelier Masculino",
-                heroDesc: "Visagismo, toalhas quentes e navalha clássica. O ritual perfeito gerido através de um ecossistema digital inteligente.",
+                temaColor: "#bfa15f", // Dourado Clássico
+                heroTitle: "Tradição & Visagismo.",
+                heroDesc: "A navalha clássica, a toalha quente e o corte à medida. Desenvolvemos esta plataforma para automatizar as suas marcações, enchendo a sua agenda sem esforço.",
                 heroImg: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1920&q=80",
-                splitImg: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
-                aboutTitle: "Tradição & Visagismo",
-                servicos: ["Corte Executivo", "Barba Clássica", "Terapia Capilar"]
+                aboutTitle: "A Arte do Cavalheiro Moderno.",
+                aboutImg1: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+                aboutImg2: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=600&q=80",
+                menuTitle: "Lista de Serviços",
+                menuCategorias: ["Corte", "Barba", "Tratamentos", "Combos"],
+                menuItens: [
+                    { nome: "Corte Executivo", preco: "18€", desc: "Corte à tesoura ou máquina, lavagem e finalização premium.", cat: 0 },
+                    { nome: "Skin Fade Moderno", preco: "20€", desc: "Degradê navalhado na perfeição, com estilo texturizado.", cat: 0 },
+                    { nome: "Barba Toalha Quente", preco: "15€", desc: "Ritual clássico com óleos essenciais, massagem e navalha.", cat: 1 },
+                    { nome: "Camuflagem de Grisalhos", preco: "25€", desc: "Tinta subtil para escurecer os fios brancos de forma natural.", cat: 2 },
+                    { nome: "Combo Boss (Corte + Barba)", preco: "30€", desc: "O pacote completo para sair impecável e relaxado.", cat: 3 }
+                ],
+                galeria: [
+                    "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1587825375533-5c8e23927230?auto=format&fit=crop&w=600&q=80"
+                ],
+                avaliacoes: [
+                    { nome: "Carlos Mendes", texto: "Ambiente espetacular. O sistema de agendar online salvou-me a vida, já não preciso de ligar no meio do trabalho.", data: "Há 1 dia", img: "https://randomuser.me/api/portraits/men/11.jpg" },
+                    { nome: "Rui Oliveira", texto: "Profissionalismo extremo. A toalha quente é um luxo absoluto. Recomendo o Combo Boss a todos os que querem relaxar.", data: "Há 4 dias", img: "https://randomuser.me/api/portraits/men/22.jpg" },
+                    { nome: "Miguel Ferreira", texto: "Sou cliente assíduo. O detalhe no corte e o cuidado com a barbearia clássica não têm rival nesta cidade.", data: "Há 1 mês", img: "https://randomuser.me/api/portraits/men/33.jpg" }
+                ],
+                servicosAgendamento: [
+                    { nome: "Corte Clássico", desc: "45 minutos de puro detalhe", img: "https://cdn-icons-png.flaticon.com/512/3067/3067425.png" },
+                    { nome: "Ritual Barba", desc: "30 minutos, toalha quente", img: "https://cdn-icons-png.flaticon.com/512/3593/3593921.png" },
+                    { nome: "O Combo Boss", desc: "Corte + Barba + Lavagem", img: "https://cdn-icons-png.flaticon.com/512/5753/5753177.png" }
+                ]
             },
             cafe: {
-                cor: "#8b5a2b", // Castanho Café
-                badge: "Specialty Coffee & Brunch",
-                heroDesc: "O aroma do café de especialidade com a conveniência de um sistema 'Order & Collect' moderno.",
+                temaColor: "#d39e82", // Tons Terracota / Pêssego / Café com leite
+                heroTitle: "Specialty Coffee & Brunch.",
+                heroDesc: "A energia das manhãs lentas e o aroma do café acabado de torrar. Uma plataforma digital que permite aos seus clientes fazerem encomendas para take-away num piscar de olhos.",
                 heroImg: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1920&q=80",
-                splitImg: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=800&q=80",
-                aboutTitle: "Cultura do Café",
-                servicos: ["Brunch Completo", "Take-Away Express", "Mesa de Coworking"]
+                aboutTitle: "A Cultura da Torra Perfeita.",
+                aboutImg1: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=800&q=80",
+                aboutImg2: "https://images.unsplash.com/photo-1495474472204-518621815db9?auto=format&fit=crop&w=600&q=80",
+                menuTitle: "A Nossa Oferta Diária",
+                menuCategorias: ["Cafetaria", "Brunch", "Pastelaria Artesanal", "Sumos Frios"],
+                menuItens: [
+                    { nome: "Flat White", preco: "3.5€", desc: "Duplo espresso com leite vaporizado e microespuma.", cat: 0 },
+                    { nome: "V60 / Filtrado", preco: "4.5€", desc: "Extração lenta, grãos da Etiópia com notas florais.", cat: 0 },
+                    { nome: "Ovos Benedict", preco: "9.5€", desc: "Em pão brioche, bacon crocante e molho holandês.", cat: 1 },
+                    { nome: "Panquecas Red Velvet", preco: "8.0€", desc: "Frutos vermelhos, xarope de ácer e mascarpone.", cat: 1 },
+                    { nome: "Cinnamon Roll", preco: "3.0€", desc: "Rolo de canela fofo e quentinho com cobertura de queijo creme.", cat: 2 },
+                    { nome: "Sumo Detox Verde", preco: "4.0€", desc: "Maçã, aipo, gengibre e espinafres, prensado a frio.", cat: 3 }
+                ],
+                galeria: [
+                    "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1463797221720-6b07e60056ce?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1495147466023-e6a92842490b?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1481833701830-4e5b38bbd103?auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=600&q=80"
+                ],
+                avaliacoes: [
+                    { nome: "Sofia Almeida", texto: "O melhor brunch da cidade! O espaço é acolhedor, ótimo para ler um livro. O sistema online de fila de espera é genial.", data: "Há 3 dias", img: "https://randomuser.me/api/portraits/women/12.jpg" },
+                    { nome: "Tomás Ribeiro", texto: "Vim pelo café de especialidade, fiquei pelos Cinnamon Rolls. Pessoal muito simpático e atencioso.", data: "Há 1 semana", img: "https://randomuser.me/api/portraits/men/55.jpg" },
+                    { nome: "Inês Valente", texto: "Costumo vir trabalhar com o portátil para cá. Ambiente tranquilo de manhã. Adoro fazer o pedido via telemóvel diretamente da mesa.", data: "Há 2 semanas", img: "https://randomuser.me/api/portraits/women/68.jpg" }
+                ],
+                servicosAgendamento: [
+                    { nome: "Reserva Mesa Brunch", desc: "Garante o teu lugar ao fim de semana", img: "https://cdn-icons-png.flaticon.com/512/3081/3081977.png" },
+                    { nome: "Order & Collect", desc: "Pede no site, levanta na loja sem fila", img: "https://cdn-icons-png.flaticon.com/512/1046/1046751.png" },
+                    { nome: "Evento Privado", desc: "Reserva para workshops ou festas", img: "https://cdn-icons-png.flaticon.com/512/3133/3133274.png" }
+                ]
             }
         };
 
-        const tema = configTemas[tipo] || configTemas['restaurante'];
+        // --- 4. INICIALIZAÇÃO DA PÁGINA COM DADOS DA URL ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const nomeCliente = urlParams.get('nome') || 'O Seu Espaço';
+            const tipoParams = (urlParams.get('tipo') || 'restaurante').toLowerCase().trim();
+            const tel = urlParams.get('tel') || '';
+            const loc = urlParams.get('loc') || '';
 
-        // APLICAR DESIGN DINÂMICO
-        document.documentElement.style.setProperty('--accent-color', tema.cor);
-        document.getElementById('hero-badge').innerText = tema.badge;
-        document.getElementById('hero-desc').innerText = tema.heroDesc;
-        document.getElementById('about-title').innerText = tema.aboutTitle;
-        
-        document.getElementById('hero-bg').style.backgroundImage = "url('" + tema.heroImg + "')";
-        document.getElementById('split-bg').style.backgroundImage = "url('" + tema.splitImg + "')";
+            // Se o tipo inserido no CSV não for exato, forçar fallback seguro
+            let config = DADOS[tipoParams];
+            if (!config) config = DADOS['restaurante'];
 
-        // INJETAR SERVIÇOS NO AGENDAMENTO
-        document.getElementById('services-grid').innerHTML = tema.servicos.map((s, idx) => 
-            "<div class='option-btn " + (idx === 0 ? 'active' : '') + "' onclick=\"selectOption(this, '#services-grid')\">" + s + "</div>"
-        ).join('');
+            // 4.1 Injeção de Dados Globais e Cores
+            document.documentElement.style.setProperty('--cor-primaria', config.temaColor);
+            document.title = nomeCliente + " | Experiência Digital Premium";
+            
+            // Textos Genéricos
+            document.querySelectorAll('.logo').forEach(el => el.innerText = nomeCliente + ".");
+            if (tel) {
+                document.getElementById('txt-phone').innerText = tel;
+                const confirmBtn = document.getElementById('final-confirm-btn');
+                confirmBtn.href = "tel:" + tel;
+                confirmBtn.removeAttribute("onclick");
+                confirmBtn.innerText = "Ligar Agora ✔";
+            }
+            if (loc) document.getElementById('txt-location').innerText = loc;
 
-        // FUNÇÃO DE SELEÇÃO NO FORMULÁRIO
-        function selectOption(elemento, containerSelector) {
-            document.querySelectorAll(containerSelector + ' .option-btn').forEach(i => i.classList.remove('active'));
-            elemento.classList.add('active');
+            // 4.2 Hero Section e About
+            document.getElementById('hero-bg').style.backgroundImage = `url('${config.heroImg}')`;
+            document.getElementById('hero-title').innerText = config.heroTitle;
+            document.getElementById('hero-desc').innerText = config.heroDesc;
+            
+            document.getElementById('about-title').innerText = config.aboutTitle;
+            document.getElementById('about-img-1').src = config.aboutImg1;
+            document.getElementById('about-img-2').src = config.aboutImg2;
+
+            if(tipoParams === 'barbearia') document.getElementById('nav-menu-txt').innerText = "Serviços";
+
+            // 4.3 Injeção do Menu Complexo
+            document.getElementById('menu-title').innerText = config.menuTitle;
+            
+            // Abas de Categoria
+            const tabsContainer = document.getElementById('menu-tabs');
+            config.menuCategorias.forEach((cat, index) => {
+                const btn = document.createElement('button');
+                btn.className = `menu-cat-btn ${index === 0 ? 'active' : ''}`;
+                btn.innerText = cat;
+                btn.onclick = (e) => filterMenu(index, e.target);
+                tabsContainer.appendChild(btn);
+            });
+
+            // Itens do Menu
+            const menuContainer = document.getElementById('menu-items-container');
+            window.allMenuItems = config.menuItens; // Guardar globalmente para o filtro
+            renderMenu(0); // Renderiza categoria 0 por defeito
+
+            // 4.4 Injeção da Galeria Masonry
+            const galeriaHtml = config.galeria.map(img => `
+                <div class="gallery-item">
+                    <img src="${img}" alt="Galeria">
+                    <div class="gallery-overlay">
+                        <svg class="icon-zoom" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('gallery-container').innerHTML = galeriaHtml;
+
+            // 4.5 Injeção das Avaliações/Testemunhos
+            const reviewsHtml = config.avaliacoes.map(rev => `
+                <div class="review-card">
+                    <svg class="icon-quote" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                    <div class="stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <p class="review-text">"${rev.texto}"</p>
+                    <div class="reviewer">
+                        <img src="${rev.img}" alt="Cliente" class="reviewer-img">
+                        <div class="reviewer-info">
+                            <h4>${rev.nome}</h4>
+                            <span>${rev.data}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('reviews-container').innerHTML = reviewsHtml;
+
+            // 4.6 Injeção de Serviços no Motor de Reservas
+            const servicesHtml = config.servicosAgendamento.map((srv, idx) => `
+                <div class="select-card ${idx === 0 ? 'selected' : ''}" onclick="selectServiceCard(this)">
+                    <img src="${srv.img}" alt="Ícone" class="select-card-img" style="filter: invert(0.2) sepia(0.5) hue-rotate(340deg) saturate(3);">
+                    <h4>${srv.nome}</h4>
+                    <p>${srv.desc}</p>
+                </div>
+            `).join('');
+            document.getElementById('booking-services').innerHTML = servicesHtml;
+        });
+
+        // Filtro de Categorias de Menu
+        function filterMenu(categoriaId, btnElement) {
+            document.querySelectorAll('.menu-cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            renderMenu(categoriaId);
         }
 
-        // MAPA GOOGLE
-        const mapContainer = document.getElementById('map-container');
-        if (loc) {
-            const iframeSrc = "https://maps.google.com/maps?q=" + encodeURIComponent(loc) + "&t=&z=15&ie=UTF8&iwloc=&output=embed";
-            mapContainer.innerHTML = "<iframe width='100%' height='100%' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='" + iframeSrc + "'></iframe>";
-        } else {
-            mapContainer.innerHTML = "<div style='display:flex; height:100%; align-items:center; justify-content:center; color:#999;'>Mapa Indisponível</div>";
+        // Renderizador de Menu Dinâmico
+        function renderMenu(categoriaId) {
+            const container = document.getElementById('menu-items-container');
+            container.innerHTML = '';
+            container.style.opacity = '0';
+            
+            setTimeout(() => {
+                const itensFiltrados = window.allMenuItems.filter(item => item.cat === categoriaId);
+                container.innerHTML = itensFiltrados.map(item => `
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <span class="item-name">${item.nome}</span>
+                            <span class="item-price">${item.preco}</span>
+                        </div>
+                        <p class="item-desc">${item.desc}</p>
+                    </div>
+                `).join('');
+                container.style.transition = 'opacity 0.4s ease';
+                container.style.opacity = '1';
+            }, 150);
         }
     </script>
 </body>
 </html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("Arquivo gerado com sucesso!")
