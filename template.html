@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="site-title">Website Oficial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img id="site-logo" src="" alt="Logo" class="w-10 h-10 rounded-full object-cover shadow-sm bg-slate-200">
+                <span id="nav-name" class="text-xl font-black text-indigo-600 tracking-tight">Negócio</span>
+            </div>
+            <a href="#contacto" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl text-sm font-bold transition shadow-md shadow-indigo-600/20">Fazer Reserva</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-slate-900 text-white py-32 px-6 overflow-hidden">
+        <div class="absolute inset-0 opacity-40 mix-blend-multiply">
+            <img id="hero-bg" src="" alt="Espaço" class="w-full h-full object-cover">
+        </div>
+        <div class="relative max-w-4xl mx-auto text-center">
+            <span class="bg-indigo-500/20 text-indigo-300 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-indigo-500/30">Proposta Exclusiva por NovaPixel</span>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight mt-6 mb-6 leading-tight">Leve a <span id="hero-name" class="text-indigo-400">sua empresa</span> ao próximo nível digital.</h1>
+            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10">Atraia mais clientes locais com um website ultra-rápido, moderno e totalmente adaptado a qualquer telemóvel.</p>
+            <a href="#contacto" class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition shadow-xl shadow-indigo-600/30">Quero este Website</a>
+        </div>
+    </section>
+
+    <!-- Serviços Prontos -->
+    <section class="py-24 max-w-6xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-20">
+            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-4">Desenvolvido para dar Resultados</h2>
+            <p class="text-slate-600 text-lg">Este é um modelo interativo premium que planeámos para o vosso negócio de forma a destacar a vossa marca da concorrência.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                <div class="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 text-xl font-bold mb-6">📱</div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Design 100% Mobile</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Mais de 85% dos clientes locais usam o telemóvel. O vosso site está preparado para ficar perfeito em qualquer ecrã.</p>
+            </div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                <div class="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 text-xl font-bold mb-6">⚡</div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Velocidade Incrível</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Páginas lentas perdem clientes. Este site abre instantaneamente, ajudando a subir nas pesquisas do Google.</p>
+            </div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                <div class="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 text-xl font-bold mb-6">🎯</div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Focado em Vendas</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Botões de chamada à ação claros para que os visitantes façam marcações ou liguem num clique.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer id="contacto" class="bg-slate-900 text-slate-400 py-16 px-6 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div>
+                <p id="footer-name" class="text-white font-black text-2xl mb-2">Negócio</p>
+                <p class="text-sm text-slate-500">Website estratégico demonstrativo criado por NovaPixel.</p>
+            </div>
+            <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50 text-center md:text-right">
+                <p class="text-white font-bold mb-1">Gostou da Demonstração?</p>
+                <p class="text-sm text-slate-400 mb-4">Podemos alterar cores, menus e textos conforme o vosso gosto.</p>
+                <p class="text-indigo-400 font-extrabold text-sm uppercase tracking-wider">Responda ao nosso Email para começar!</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT CAMALEÃO: Faz a magia de ler o link -->
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const nomeNegocio = params.get('nome') || 'O Seu Negócio';
+        const urlLogo = params.get('logo') || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
+        const urlFoto = params.get('foto') || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab';
+
+        // Aplicar os dados do cliente no site em tempo real
+        document.getElementById('site-title').innerText = nomeNegocio + ' | Website Oficial';
+        document.getElementById('nav-name').innerText = nomeNegocio;
+        document.getElementById('hero-name').innerText = nomeNegocio;
+        document.getElementById('footer-name').innerText = nomeNegocio;
+        document.getElementById('site-logo').src = urlLogo;
+        document.getElementById('hero-bg').src = urlFoto;
+    </script>
+</body>
+</html>
