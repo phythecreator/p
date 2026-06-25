@@ -3,68 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaPixel — Visualização de Protótipo Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <title>NovaPixel — Demonstração Digital Exclusiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-primary: #121212;
-            --bg-card: #1c1c1e;
-            --accent-color: #bc9c6c; /* Cor dinâmica */
-            --text-main: #ffffff;
-            --text-muted: #a1a1a6;
-            --border-color: #2c2c2e;
+            --bg-site: #fdfdfd;
+            --bg-card: #ffffff;
+            --accent-color: #bc9c6c; /* Muda via JavaScript */
+            --text-dark: #111111;
+            --text-muted: #666666;
+            --border-light: #eaeaea;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
 
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-main);
+            background-color: var(--bg-site);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .top-banner {
-            background-color: #1a1a1a;
-            border-bottom: 1px solid var(--border-color);
-            padding: 14px;
+        /* NOTIFICATION BAR */
+        .top-indicator {
+            background-color: #111111;
+            color: #ffffff;
+            padding: 12px;
             text-align: center;
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 3px;
             font-weight: 600;
             text-transform: uppercase;
-            color: var(--accent-color);
         }
 
-        .main-wrapper {
+        .main-container {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 50px 20px;
         }
 
-        .showcase-card {
+        .premium-card {
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            max-width: 650px;
+            border: 1px solid var(--border-light);
+            max-width: 720px;
             width: 100%;
-            border-radius: 16px;
-            padding: 45px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            text-align: center;
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.05);
         }
 
-        .brand-pill {
+        /* BADGES & TYPOGRAPHY */
+        .badge-pill {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--accent-color);
             color: var(--accent-color);
-            padding: 6px 16px;
-            border-radius: 20px;
+            padding: 5px 14px;
+            border-radius: 30px;
             font-size: 11px;
             font-weight: 600;
             letter-spacing: 2px;
@@ -72,244 +71,340 @@
             margin-bottom: 25px;
         }
 
-        h1.client-name {
+        h1.main-title {
             font-family: 'Playfair Display', serif;
-            font-size: 38px;
+            font-size: 44px;
             font-weight: 700;
-            margin-bottom: 10px;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 6px;
         }
 
-        .client-type {
-            font-size: 12px;
+        .subtitle-nicho {
+            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             color: var(--text-muted);
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+            font-weight: 500;
         }
 
-        .pitch-text {
-            color: #e5e5ea;
-            font-size: 15px;
+        .introduction-text {
+            color: #333333;
+            font-size: 16px;
             line-height: 1.8;
             text-align: justify;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
-        .features-grid {
+        /* GRID DE RECURSOS */
+        .features-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 35px;
+            gap: 20px;
+            margin-bottom: 45px;
             text-align: left;
         }
 
-        .feature-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 8px;
+        .feature-card {
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            padding: 20px;
+            border-radius: 12px;
         }
 
-        .feature-item title {
-            display: block;
-            font-size: 13px;
+        .feature-card h4 {
+            font-size: 14px;
             font-weight: 600;
-            color: var(--accent-color);
-            margin-bottom: 5px;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .feature-item desc {
-            display: block;
-            font-size: 12px;
+        .feature-card p {
+            font-size: 13px;
             color: var(--text-muted);
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        .cta-button {
-            display: inline-block;
-            background: var(--text-main);
-            color: var(--bg-primary);
+        /* MÓDULO DE AGENDAMENTO INTERATIVO CLARO */
+        .booking-mockup-box {
+            background: #ffffff;
+            border: 2px solid var(--border-light);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        .booking-mockup-box h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .booking-step-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin: 15px 0 8px 0;
+            display: block;
+        }
+
+        .service-selector, .time-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .select-item {
+            background: #f5f5f7;
+            border: 1px solid #e5e5ea;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .select-item.active {
+            background: #111111;
+            color: #ffffff;
+            border-color: #111111;
+        }
+
+        .action-btn-trigger {
+            display: block;
+            background: #111111;
+            color: #ffffff;
             text-decoration: none;
+            text-align: center;
             padding: 18px;
             font-size: 12px;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            width: 100%;
+            border-radius: 8px;
+            margin-top: 25px;
+            transition: all 0.3s;
         }
 
-        .cta-button:hover {
+        .action-btn-trigger:hover {
             background: var(--accent-color);
-            color: #ffffff;
             transform: translateY(-2px);
         }
 
-        .map-section {
-            margin-top: 35px;
-            border-radius: 10px;
+        /* LOCALIZAÇÃO E MAPA */
+        .map-frame-holder {
+            margin-top: 40px;
+            border-radius: 16px;
             overflow: hidden;
-            border: 1px solid var(--border-color);
-            height: 220px;
+            border: 1px solid var(--border-light);
+            height: 265px;
         }
 
-        .meta-info-container {
-            margin-top: 25px;
+        .address-footer-box {
+            margin-top: 20px;
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 500;
             color: var(--text-muted);
-            background: rgba(0, 0, 0, 0.15);
-            padding: 12px 20px;
-            border-radius: 6px;
+            border-top: 1px solid var(--border-light);
+            padding-top: 20px;
         }
 
-        .bottom-nav {
-            background-color: #0d0d0d;
-            border-top: 1px solid var(--border-color);
-            padding: 20px;
+        /* RODAPÉ DO PROTÓTIPO */
+        .branding-footer {
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-light);
+            padding: 25px;
             text-align: center;
         }
 
-        .bottom-nav-inner {
-            max-width: 400px;
+        .pill-navbar-style {
+            max-width: 420px;
             margin: 0 auto;
-            background: #1c1c1e;
+            background: #f5f5f7;
             padding: 6px;
-            border-radius: 30px;
+            border-radius: 40px;
             display: flex;
-            justify-content: space-around;
-            border: 1px solid #2c2c2e;
+            justify-content: space-between;
+            border: 1px solid #e5e5ea;
         }
 
-        .nav-item {
+        .navbar-link {
             color: var(--text-muted);
             text-decoration: none;
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 10px 24px;
+            border-radius: 30px;
+            transition: all 0.2s;
         }
 
-        .nav-item.active {
-            background: #2c2c2e;
-            color: var(--text-main);
+        .navbar-link.active {
+            background: #ffffff;
+            color: var(--text-dark);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 768px) {
+            .premium-card { padding: 30px 20px; }
+            h1.main-title { font-size: 32px; }
+            .features-layout { grid-template-columns: 1fr; }
+            .address-footer-box { flex-direction: column; gap: 10px; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <div id="top-banner" class="top-banner">PROTÓTIPO EXCLUSIVO</div>
+    <div id="top-indicator" class="top-indicator">PROTÓTIPO INTERATIVO</div>
 
-    <div class="main-wrapper">
-        <div class="showcase-card">
-            <span class="brand-pill" id="badge-tipo">STUDIO DIGITAL</span>
-            <h1 id="client-title" class="client-name">Carregando...</h1>
-            <div id="client-subtitle" class="client-type">Por favor, aguarde...</div>
+    <div class="main-container">
+        <div class="premium-card">
+            <span class="badge-pill" id="badge-nicho">CONCEITO EXCLUSIVO</span>
+            <h1 id="client-title" class="main-title">A carregar...</h1>
+            <div id="client-subtitle" class="subtitle-nicho">ESTUDO DE MERCADO</div>
             
-            <p id="client-pitch" class="pitch-text"></p>
+            <p id="client-pitch" class="introduction-text"></p>
 
-            <div class="features-grid" id="features-box"></div>
+            <div class="features-layout" id="features-grid-box"></div>
 
-            <a id="action-btn" href="#" class="cta-button">Contactar Agência</a>
+            <div class="booking-mockup-box">
+                <h3 id="booking-title">Simulador de Reservas</h3>
+                
+                <span class="booking-step-label">1. Escolha o Serviço Demonstrativo:</span>
+                <div class="service-selector" id="services-container"></div>
 
-            <div id="map-wrapper" class="map-section"></div>
+                <span class="booking-step-label">2. Escolha o Horário Pretendido:</span>
+                <div class="time-selector">
+                    <div class="select-item active" onclick="selectTime(this)">10:30</div>
+                    <div class="select-item" onclick="selectTime(this)">14:00</div>
+                    <div class="select-item" onclick="selectTime(this)">16:30</div>
+                    <div class="select-item" onclick="selectTime(this)">19:00</div>
+                </div>
 
-            <div class="meta-info-container">
+                <a id="action-btn" href="#" class="action-btn-trigger">Confirmar Demonstração</a>
+            </div>
+
+            <div id="map-holder" class="map-frame-holder"></div>
+
+            <div class="address-footer-box">
                 <span id="meta-location">📍 Localização</span>
-                <span id="meta-phone">📞 Telefone</span>
+                <span id="meta-phone">📞 Linha Direta</span>
             </div>
         </div>
     </div>
 
-    <div class="bottom-nav">
-        <div class="bottom-nav-inner">
-            <a href="#" class="nav-item active">Início</a>
-            <a href="#" class="nav-item">Serviços</a>
-            <a href="#" class="nav-item">Reservas</a>
+    <div class="branding-footer">
+        <div class="pill-navbar-style">
+            <a href="#" class="navbar-link active">Início</a>
+            <a href="#" class="navbar-link">Galeria</a>
+            <a href="#" class="navbar-link">Preçário</a>
         </div>
     </div>
 
     <script>
-        // Capturar os dados passados pelo Python de forma limpa
         const urlParams = new URLSearchParams(window.location.search);
-        const nome = urlParams.get('nome') || 'O Vosso Espaço';
+        const nome = urlParams.get('nome') || 'O Vosso Negócio';
         const tipo = (urlParams.get('tipo') || 'restaurante').toLowerCase().trim();
         const tel = urlParams.get('tel') || '';
         const loc = urlParams.get('loc') || '';
 
-        // Atualizar os textos base da página
         document.getElementById('client-title').innerText = nome;
-        document.getElementById('meta-location').innerText = loc ? `📍 ${loc}` : '📍 Localização sob consulta';
-        document.getElementById('meta-phone').innerText = tel ? `📞 ${tel}` : '📞 Linha Geral';
+        document.getElementById('meta-location').innerText = loc ? "📍 " + loc : '📍 Endereço Institucional';
+        document.getElementById('meta-phone').innerText = tel ? "📞 " + tel : '📞 Linha de Contacto';
 
-        // Definição Inteligente de TEMAS (Cores e Textos Dedicados)
-        const configuradorTemas = {
+        // ARQUITETURA DE MATRIZES EM LIGHT-MODE E COMPONENTES DE AGENDAMENTO
+        const ecossistemaNegocios = {
             barbearia: {
-                cor: "#d4af37", // Dourado Barbearia Clássica
-                subtitulo: "Estética Masculina & Visagismo Moderno",
-                badge: "Conceito Barbearia Premium",
-                pitch: `Desenhámos para a ${nome} uma plataforma focada na retenção e conversão de clientes. O protótipo otimiza a vossa agenda através de marcações em 3 cliques, reduzindo tempos mortos nas cadeiras e promovendo rituais exclusivos de corte e barba.`,
-                cta: "Testar Agenda de Cortes",
+                cor: "#bfa15f",
+                badge: "Ecossistema Barbearia Premium",
+                subtitulo: "Estética Masculina & Gestão Operacional",
+                pitch: "Desenvolvemos este ecossistema focado inteiramente na retenção e facilidade de agendamento para os vossos clientes. O grande objetivo é extinguir as perdas de faturação por chamadas não atendidas e otimizar a rotação das vossas cadeiras.",
+                servicios: ["Corte Haircut Premium", "Barba Toalha Quente", "Tratamento Capilar"],
                 features: [
-                    { t: "Cadeiras Otimizadas", d: "Sincronização de horários por barbeiro em tempo real." },
-                    { t: "Alertas SMS Automáticos", d: "Redução drástica de faltas e esquecimentos por parte dos clientes." }
+                    { t: "Agendamento em 3 Cliques", d: "Interface ultra rápida para o cliente marcar sem telefonemas." },
+                    { t: "Notificações de Retenção", d: "Alertas automáticos para relembrar o cliente de voltar a cortar a barba." }
                 ]
             },
             restaurante: {
-                cor: "#bc9c6c", // Bronze Sofisticado Restaurante
-                subtitulo: "Alta Gastronomia & Gestão de Reservas Eficiente",
-                badge: "Conceito Fine Dining",
-                pitch: `A arquitetura digital proposta para a ${nome} moderniza a gestão de turnos e mesas. Eliminamos o atrito telefónico, permitindo aos clientes reservar mesas e explorar o vosso menu digital sofisticado instantaneamente.`,
-                cta: "Simular Reserva de Mesa",
+                cor: "#a94442",
+                badge: "Ecossistema Gastro-Dining",
+                subtitulo: "Alta Gastronomia & Otimização de Turnos",
+                pitch: "Esta plataforma foi desenhada para eliminar intermediários e comissões abusivas de plataformas de entrega. Damos o controlo total das vossas reservas de mesa e da visualização interativa do menu em tempo real.",
+                servicios: ["Menu Degustação", "Reserva de Mesa VIP", "Almoço Executivo"],
                 features: [
-                    { t: "Gestão de Turnos", d: "Controlo absoluto sobre a ocupação de mesas por horários." },
-                    { t: "Menu QR Code Dinâmico", d: "Alterações de pratos e preços de forma instantânea e autónoma." }
+                    { t: "Gestor de Turnos Ativo", d: "Evita a sobreposição de lugares e garante rotação máxima de mesas." },
+                    { t: "Ementa Digital Fluida", d: "Alterações de pratos, alergénios e preços de forma imediata." }
                 ]
             },
             cafe: {
-                cor: "#e0a96d", // Castanho Café Acolhedor
-                subtitulo: "Brunch, Cafés de Especialidade & Cultura",
-                badge: "Conceito Cozy Coffee",
-                pitch: `Para a equipa da ${nome}, idealizámos um hub digital que valoriza o vosso espaço e ambiente. Integra ferramentas de take-away expresso e cartões de fidelização virtuais para cativar clientes habituais.`,
-                cta: "Visualizar Menu Take-Away",
+                cor: "#8a6d3b",
+                badge: "Ecossistema Specialty Coffee & Brunch",
+                subtitulo: "Cultura de Café & Sistemas de Fidelização",
+                pitch: "Concebemos um hub interativo focado no cliente recorrente. Criámos dinâmicas digitais automáticas para potenciar o vosso menu de brunch e automatizar os pedidos de recolha rápida à porta.",
+                servicios: ["Brunch Completo", "Order & Collect", "Café de Especialidade"],
                 features: [
-                    { t: "Fidelização Nativa", d: "Cartão de pontos digital automático para os amantes de café." },
-                    { t: "Order & Collect", d: "Permite pedir antes de chegar para evitar filas nos picos da manhã." }
+                    { t: "Fidelidade Sem Cartão", d: "Os clientes acumulam pontos diretamente no telemóvel a cada consumo." },
+                    { t: "Módulo Pré-Encomenda", d: "O cliente faz o pedido a caminho do espaço e recolhe sem filas." }
                 ]
             }
         };
 
-        // Carregar o tema selecionado (ou usar restaurante como segurança)
-        const tema = configuradorTemas[tipo] || configuradorTemas['restaurante'];
+        const config = ecossistemaNegocios[tipo] || ecossistemaNegocios['restaurante'];
 
-        // APLICAR AS CORES DO TEMA DINAMICAMENTE (Customização de verdade!)
-        document.documentElement.style.setProperty('--accent-color', tema.cor);
-        document.getElementById('badge-tipo').innerText = tema.badge;
-        document.getElementById('client-subtitle').innerText = tema.subtitulo;
-        document.getElementById('client-pitch').innerText = tema.pitch;
-        
-        const btn = document.getElementById('action-btn');
-        btn.innerText = tema.cta;
-        if(tel) btn.href = `tel:${tel}`;
+        // APLICAR CONFIGURAÇÕES ESTÉTICAS CLARAS
+        document.documentElement.style.setProperty('--accent-color', config.cor);
+        document.getElementById('badge-nicho').innerText = config.badge;
+        document.getElementById('client-subtitle').innerText = config.subtitulo;
+        document.getElementById('client-pitch').innerText = config.pitch;
 
-        // Injetar características do tema
-        document.getElementById('features-box').innerHTML = tema.features.map(f => `
-            <div class="feature-item">
-                <title>${f.t}</title>
-                <desc>${f.d}</desc>
-            </div>
-        `).join('');
+        // INJETAR FEATURES
+        document.getElementById('features-grid-box').innerHTML = config.features.map(f => " \
+            <div class='feature-card'> \
+                <h4>" + f.t + "</h4> \
+                <p>" + f.d + "</p> \
+            </div> \
+        ").join('');
 
-        // GERAR O MAPA GOOGLE CORRETAMENTE USANDO TEMPLATE LITERALS SÉRIO (${})
-        const wrapperMapa = document.getElementById('map-wrapper');
+        // INJETAR SERVIÇOS DO AGENDAMENTO
+        document.getElementById('services-container').innerHTML = config.servicios.map((s, idx) => " \
+            <div class='select-item " + (idx === 0 ? 'active' : '') + "' onclick='selectService(this)'>" + s + "</div> \
+        ").join('');
+
+        // BOTÃO DE CHAMADA DINÂMICO
+        const mainBtn = document.getElementById('action-btn');
+        if (tel) mainBtn.href = "tel:" + tel;
+
+        // FUNÇÕES INTERATIVAS DO PROTÓTIPO
+        function selectService(el) {
+            document.querySelectorAll('#services-container .select-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+        }
+        function selectTime(el) {
+            document.querySelectorAll('.time-selector .select-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // CONFIGURAÇÃO DO MAPA POR CONCATENAÇÃO DIRETA E SEGURA
+        const mapBox = document.getElementById('map-holder');
         if (loc) {
-            const linkMapaSeguro = `https://maps.google.com/maps?q=${encodeURIComponent(loc)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
-            wrapperMapa.innerHTML = `<iframe width="100%" height="100%" style="border:0; filter: grayscale(1) invert(1) contrast(1.2);" src="${linkMapaSeguro}" allowfullscreen loading="lazy"></iframe>`;
+            const iframeUrl = "https://maps.google.com/maps?q=" + encodeURIComponent(loc) + "&t=&z=15&ie=UTF8&iwloc=&output=embed";
+            mapBox.innerHTML = "<iframe width='100%' height='100%' style='border:0; filter: grayscale(0.2) contrast(1.1);' src='" + iframeUrl + "' allowfullscreen loading='lazy'></iframe>";
         } else {
-            wrapperMapa.style.display = 'none';
+            mapBox.style.display = 'none';
         }
     </script>
 </body>
