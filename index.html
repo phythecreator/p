@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Plataforma Exclusiva - NovaPixel</title>
+    <title>Plataforma Exclusiva Digital - NovaPixel</title>
     
     <!-- Fontes Premium de Alta Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +20,7 @@
         body {
             min-height: 100vh;
             color: #ffffff;
-            background-color: #0a0a0b;
+            background-color: #080809;
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
             position: relative;
@@ -30,29 +30,30 @@
         .ambient-glow {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1; pointer-events: none;
-            background: radial-gradient(circle at 80% 20%, var(--glow-1) 0%, transparent 50%),
-                        radial-gradient(circle at 20% 80%, var(--glow-2) 0%, #09090a 80%);
+            background: radial-gradient(circle at 80% 20%, var(--glow-1) 0%, transparent 55%),
+                        radial-gradient(circle at 20% 80%, var(--glow-2) 0%, #070708 85%);
         }
 
-        /* Estrutura Principal em Grelha Expandida (Corrige o vazio da image_72dc7d.png) */
+        /* Estrutura Principal em Grelha Expandida (Cinema Layout) */
         .app-container {
             position: relative; z-index: 5;
-            width: 100%; max-width: 1400px;
+            width: 100%; max-width: 1440px;
             margin: 0 auto; min-height: 100vh;
             display: grid; grid-template-columns: 1fr 1.2fr;
-            gap: 40px; padding: 40px;
+            gap: 35px; padding: 35px;
         }
 
-        /* COLUNA ESQUERDA: IDENTIDADE FIXA E INFORMAÇÕES RICAS */
+        /* COLUNA ESQUERDA: SIDEBAR DE IDENTIDADE COM IMAGEM DE DESTAQUE */
         .brand-sidebar {
             display: flex; flex-direction: column; justify-content: space-between;
             background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: var(--radius); padding: 50px;
+            border-radius: var(--radius); padding: 45px;
             backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            position: relative; overflow: hidden;
         }
 
-        .header-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .header-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; position: relative; z-index: 3; }
         .live-status {
             font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
             padding: 6px 14px; border-radius: 30px; display: flex; align-items: center; gap: 8px;
@@ -60,98 +61,118 @@
         }
         .live-status::before { content: ""; width: 6px; height: 6px; background: #2ed573; border-radius: 50%; box-shadow: 0 0 10px #2ed573; }
 
-        .main-title { font-size: 48px; font-weight: 400; line-height: 1.1; margin-bottom: 14px; letter-spacing: var(--title-spacing); color: #fff; }
-        .main-slogan { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 30px; }
-        .main-story { font-size: 15px; line-height: 1.8; opacity: 0.75; text-align: justify; margin-bottom: 40px; font-weight: 300; }
+        .sidebar-content { position: relative; z-index: 3; }
+        .main-title { font-size: 44px; font-weight: 400; line-height: 1.1; margin-bottom: 12px; letter-spacing: var(--title-spacing); color: #fff; }
+        .main-slogan { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 25px; }
+        .main-story { font-size: 15px; line-height: 1.8; opacity: 0.8; text-align: justify; margin-bottom: 35px; font-weight: 300; }
 
-        /* Novo Módulo: Horários Operacionais */
-        .hours-panel {
-            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04);
-            border-radius: calc(var(--radius) / 2); padding: 25px; margin-bottom: 30px;
+        /* Grande Imagem de Banner na Sidebar (Traz vida e preenche o ecrã) */
+        .sidebar-hero-frame {
+            width: 100%; height: 200px; border-radius: calc(var(--radius) / 2);
+            overflow: hidden; margin-bottom: 30px; border: 1px solid var(--border-color);
+            position: relative; z-index: 3;
         }
-        .hours-title { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 15px; font-weight: 600; }
-        .hours-row { display: flex; justify-content: space-between; font-size: 13px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); opacity: 0.8; }
+        .sidebar-hero-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--anim-fluid); }
+        .sidebar-hero-frame:hover img { transform: scale(1.05); }
+
+        /* Módulo de Horários Elegante */
+        .hours-panel {
+            background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03);
+            border-radius: calc(var(--radius) / 2); padding: 22px; position: relative; z-index: 3;
+        }
+        .hours-title { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
+        .hours-row { display: flex; justify-content: space-between; font-size: 13px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); opacity: 0.8; }
         .hours-row:last-child { border-bottom: none; }
 
         /* COLUNA DIREITA: CONTEÚDO INTERATIVO DINÂMICO */
-        .content-workspace {
-            display: flex; flex-direction: column; gap: 25px;
-        }
+        .content-workspace { display: flex; flex-direction: column; gap: 20px; }
 
-        /* Barra de Abas Profissional */
+        /* Barra de Abas Premium */
         .tabs-nav {
             display: flex; background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: var(--radius-nav); padding: 8px; gap: 5px;
+            border-radius: var(--radius-nav); padding: 6px; gap: 4px;
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         .tab-trigger {
-            flex: 1; text-align: center; padding: 16px 0; font-size: 11px; font-weight: 700;
+            flex: 1; text-align: center; padding: 15px 0; font-size: 11px; font-weight: 700;
             letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4);
             cursor: pointer; border-radius: calc(var(--radius-nav) - 4px); transition: all 0.3s var(--anim-fluid);
         }
         .tab-trigger.active { background: var(--accent); color: var(--btn-text); box-shadow: 0 10px 25px var(--shadow-accent); }
 
-        /* Contentores de Ecrãs com Transição Fluida */
+        /* Painéis de Conteúdo com Animação Cinema */
         .workspace-card {
             background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: var(--radius); padding: 45px; min-height: 520px;
+            border-radius: var(--radius); padding: 40px; min-height: 550px;
             display: none; animation: slideUp 0.6s var(--anim-fluid) forwards;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
         .workspace-card.active { display: block; }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); filter: blur(5px); }
+            from { opacity: 0; transform: translateY(15px); filter: blur(4px); }
             to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        .section-header { margin-bottom: 35px; }
-        .section-title { font-size: 26px; font-weight: 400; letter-spacing: var(--title-spacing); margin-bottom: 6px; }
+        .section-header { margin-bottom: 30px; }
+        .section-title { font-size: 26px; font-weight: 400; letter-spacing: var(--title-spacing); margin-bottom: 5px; }
         .section-subtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; }
 
-        /* Lista de Serviços Interativa Avançada */
-        .services-grid { display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px; }
+        /* Lista de Serviços Interativa com Imagens e Estrelas */
+        .services-grid { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
         .service-item-card {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px; background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05); border-radius: calc(var(--radius) / 2);
+            display: flex; gap: 20px; align-items: center;
+            padding: 16px; background: rgba(255,255,255,0.01);
+            border: 1px solid rgba(255,255,255,0.04); border-radius: calc(var(--radius) / 2.5);
             cursor: pointer; transition: all 0.25s ease;
         }
-        .service-item-card:hover { background: rgba(255,255,255,0.04); border-color: var(--accent); transform: scale(1.01); }
+        .service-item-card:hover { background: rgba(255,255,255,0.03); border-color: var(--accent); transform: translateY(-1px); }
         .service-item-card.selected { background: var(--selected-bg); border-color: var(--accent); }
-        .service-info h4 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+        
+        /* Thumbnail Imagem do Menu */
+        .service-img-wrapper {
+            width: 80px; height: 80px; border-radius: calc(var(--radius) / 4);
+            overflow: hidden; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.06);
+        }
+        .service-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .service-info { flex-grow: 1; }
+        .service-info h4 { font-size: 16px; font-weight: 500; margin-bottom: 3px; color: #fff; transition: color 0.2s; }
         .service-item-card.selected .service-info h4 { color: var(--accent); }
-        .service-info p { font-size: 12px; opacity: 0.4; font-weight: 300; line-height: 1.4; }
-        .service-price { font-size: 16px; font-weight: 600; color: var(--accent); font-family: 'Montserrat', sans-serif; }
+        .service-info p { font-size: 12px; opacity: 0.4; font-weight: 300; line-height: 1.4; margin-bottom: 6px; }
+        
+        /* Nova Linha de Classificação por Estrelas (Ratings) */
+        .service-rating { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #f1c40f; font-weight: 600; font-family: 'Montserrat', sans-serif; }
+        .service-rating .stars-gold { letter-spacing: 1px; }
+        .service-rating .review-count { color: rgba(255,255,255,0.3); font-weight: 300; margin-left: 2px; }
 
-        /* Novo Módulo: Destaques Visuais / Novidades */
-        .highlights-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-        .highlight-mini-box {
-            background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04);
-            padding: 20px; border-radius: 14px; text-align: left;
-        }
-        .highlight-mini-box h5 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 5px; }
-        .highlight-mini-box p { font-size: 13px; opacity: 0.6; font-weight: 300; }
+        .service-price { font-size: 17px; font-weight: 600; color: var(--accent); font-family: 'Montserrat', sans-serif; padding-left: 10px; }
 
-        /* Formulários Executivos */
-        .form-wrapper { display: flex; flex-direction: column; gap: 20px; }
-        .input-block label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; opacity: 0.6; font-weight: 600; }
-        .input-element {
-            width: 100%; padding: 18px; background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08); border-radius: calc(var(--radius) / 2.5);
-            color: #fff; font-size: 14px; transition: all 0.3s; font-family: 'Montserrat', sans-serif;
-        }
-        .input-element:focus { outline: none; border-color: var(--accent); background: rgba(255,255,255,0.06); }
-        select.input-element option { background: #0e0e10; color: #fff; }
-
-        /* Resumo de Faturação Digital */
+        /* Caixa de Resumo e Faturação */
         .checkout-summary {
-            background: rgba(0,0,0,0.2); padding: 20px; border-radius: 14px;
+            background: rgba(0,0,0,0.15); padding: 20px; border-radius: 14px;
             display: flex; justify-content: space-between; align-items: center;
             border-left: 4px solid var(--accent); margin-top: 10px;
         }
         .checkout-summary text { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.5; }
         .checkout-summary .total-price { font-size: 22px; font-weight: 700; color: var(--accent); }
+
+        /* Formulários Clean e Inputs */
+        .form-wrapper { display: flex; flex-direction: column; gap: 20px; }
+        .input-block label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; opacity: 0.6; font-weight: 600; }
+        .input-element {
+            width: 100%; padding: 18px; background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.07); border-radius: calc(var(--radius) / 3);
+            color: #fff; font-size: 14px; transition: all 0.3s; font-family: 'Montserrat', sans-serif;
+        }
+        .input-element:focus { outline: none; border-color: var(--accent); background: rgba(255,255,255,0.05); }
+        select.input-element option { background: #0c0c0e; color: #fff; }
+
+        .highlights-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+        .highlight-mini-box { background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03); padding: 18px; border-radius: 12px; }
+        .highlight-mini-box h5 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 4px; }
+        .highlight-mini-box p { font-size: 12px; opacity: 0.5; font-weight: 300; }
 
         /* Botões de Ação de Luxo */
         .btn-luxury-action {
@@ -162,50 +183,51 @@
         }
         .btn-luxury-action:hover { filter: brightness(1.2); transform: translateY(-2px); }
 
-        /* Google Maps Container */
-        .map-wrapper-box { width: 100%; height: 380px; border-radius: calc(var(--radius) / 2); overflow: hidden; border: 1px solid var(--border-color); background: #000; }
+        /* Google Maps */
+        .map-wrapper-box { width: 100%; height: 400px; border-radius: calc(var(--radius) / 2); overflow: hidden; border: 1px solid var(--border-color); background: #000; }
         .map-wrapper-box iframe { width: 100%; height: 100%; border: none; }
 
-        /* Rodapé Discreto NovaPixel */
+        /* Rodapé NovaPixel */
         .novapixel-footer {
-            grid-column: 1 / span 2; text-align: center; padding: 20px 0;
+            grid-column: 1 / span 2; text-align: center; padding: 25px 0 10px 0;
             font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.3;
-            border-top: 1px solid rgba(255,255,255,0.05); margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.04); margin-top: 15px;
         }
 
         /* =====================================================================
-           CONFIGURAÇÕES EXCLUSIVAS DE TEMAS RADICAIS
+           ARQUITETURA DE ABAS E CONFIGURAÇÕES DE TEMA RADICAL
         ===================================================================== */
         
-        /* TEMA: ALTA GASTRONOMIA (RESTAURANTE) */
+        /* TEMA: RESTAURANTE (Gourmet / Elegância) */
         body.theme-restaurante {
             font-family: 'Cormorant Garamond', serif;
             --glow-1: rgba(226, 168, 122, 0.12); --glow-2: rgba(141, 99, 64, 0.08);
-            --card-bg: rgba(13, 14, 16, 0.75); --border-color: rgba(226, 168, 122, 0.15);
-            --accent: #e2a87a; --btn-text: #0e0f11; --shadow-accent: rgba(226, 168, 122, 0.2);
-            --selected-bg: rgba(226, 168, 122, 0.08);
-            --radius: 36px; --radius-nav: 50px; --btn-radius: 18px; --title-spacing: -1px;
+            --card-bg: rgba(12, 13, 15, 0.75); --border-color: rgba(226, 168, 122, 0.15);
+            --accent: #e2a87a; --btn-text: #0b0c0d; --shadow-accent: rgba(226, 168, 122, 0.2);
+            --selected-bg: rgba(226, 168, 122, 0.07);
+            --radius: 36px; --radius-nav: 50px; --btn-radius: 16px; --title-spacing: -1px;
         }
         body.theme-restaurante .input-element { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 500; }
-        body.theme-restaurante .tab-trigger, body.theme-restaurante .live-status, body.theme-restaurante .service-price, body.theme-restaurante .checkout-summary, body.theme-restaurante .novapixel-footer { font-family: 'Montserrat', sans-serif; }
+        body.theme-restaurante .tab-trigger, body.theme-restaurante .live-status, body.theme-restaurante .service-price, body.theme-restaurante .service-rating, body.theme-restaurante .checkout-summary, body.theme-restaurante .novapixel-footer { font-family: 'Montserrat', sans-serif; }
 
-        /* TEMA: INDUSTRIAL PREMIUM (BARBEARIA) */
+        /* TEMA: BARBEARIA (Industrial / Vintage) */
         body.theme-barbearia {
             font-family: 'Cinzel', serif;
-            --glow-1: rgba(197, 160, 89, 0.08); --glow-2: rgba(30, 30, 30, 0.5);
-            --card-bg: rgba(10, 10, 11, 0.9); --border-color: rgba(197, 160, 89, 0.2);
+            --glow-1: rgba(197, 160, 89, 0.08); --glow-2: rgba(35, 35, 35, 0.4);
+            --card-bg: rgba(10, 10, 11, 0.92); --border-color: rgba(197, 160, 89, 0.2);
             --accent: #c5a059; --btn-text: #000000; --shadow-accent: rgba(197, 160, 89, 0.15);
-            --selected-bg: rgba(197, 160, 89, 0.1);
+            --selected-bg: rgba(197, 160, 89, 0.09);
             --radius: 4px; --radius-nav: 4px; --btn-radius: 2px; --title-spacing: 1px;
         }
         body.theme-barbearia .input-element { font-family: 'Cinzel', serif; font-size: 13px; }
         body.theme-barbearia .service-price, body.theme-barbearia .checkout-summary, body.theme-barbearia .tab-trigger, body.theme-barbearia .hours-row, body.theme-barbearia .live-status, body.theme-barbearia .novapixel-footer { font-family: 'Montserrat', sans-serif; }
 
-        /* RESPONSIVIDADE TOTAL (Ajuste perfeito para Mobile/Tablets) */
+        /* Responsividade para Tablets e Dispositivos Móveis */
         @media(max-width: 1024px) {
-            .app-container { grid-template-columns: 1fr; padding: 20px; gap: 25px; }
-            .brand-sidebar { padding: 35px 25px; }
-            .main-title { font-size: 36px; }
+            .app-container { grid-template-columns: 1fr; padding: 15px; gap: 20px; }
+            .brand-sidebar { padding: 35px 20px; }
+            .main-title { font-size: 34px; }
+            .workspace-card { padding: 30px 20px; }
         }
     </style>
 </head>
@@ -215,198 +237,247 @@
 
     <div class="app-container">
         
-        <!-- COLUNA ESQUERDA: APRESENTAÇÃO INSTITUCIONAL DA EMPRESA -->
+        <!-- COLUNA ESQUERDA: SIDEBAR INSTITUCIONAL COM BANNER REAL -->
         <aside class="brand-sidebar">
-            <div>
+            <div class="sidebar-content">
                 <div class="header-meta">
-                    <span style="font-size: 10px; font-weight: 700; letter-spacing: 2px; opacity: 0.5; text-transform: uppercase;">NovaPixel Lab</span>
-                    <div class="live-status">Disponível</div>
+                    <span style="font-size: 9px; font-weight: 700; letter-spacing: 2px; opacity: 0.4; text-transform: uppercase;">NovaPixel Agency</span>
+                    <div class="live-status">Aberto Agora</div>
                 </div>
                 
                 <h1 class="main-title" id="dyn-main-name">A Carregar...</h1>
                 <p class="main-slogan" id="dyn-slogan">Conceito de Excelência</p>
+                
+                <!-- Imagem Principal da Empresa Dinâmica -->
+                <div class="sidebar-hero-frame">
+                    <img src="" id="dyn-sidebar-img" alt="Ambiente Corporativo" loading="lazy">
+                </div>
+
                 <p class="main-story" id="dyn-story-paragraph">
-                    Seja bem-vindo à nossa atmosfera exclusiva. Desenvolvemos uma proposta de valor focada no rigor, onde cada atendimento é personalizado para superar as suas expectativas mais exigentes.
+                    Seja bem-vindo ao nosso espaço exclusivo. Criámos um conceito focado na alta precisão e conforto, onde cada detalhe foi meticulosamente planeado para oferecer uma experiência singular e memorável.
                 </p>
             </div>
 
-            <!-- Novo Painel de Informações Operacionais Solicitado -->
+            <!-- Painel de Horários Operacionais -->
             <div>
                 <div class="hours-panel">
-                    <div class="hours-title">Horário de Atendimento</div>
-                    <div class="hours-row"><span>Terça a Sexta</span><strong>09:30 – 20:00</strong></div>
-                    <div class="hours-row"><span>Sábado</span><strong>09:00 – 19:00</strong></div>
-                    <div class="hours-row"><span>Domingo e Segunda</span><span style="opacity:0.5;">Encerrado</span></div>
+                    <div class="hours-title">Horário de Funcionamento</div>
+                    <div class="hours-row"><span>Terça a Sexta</span><strong>12:00 – 23:00</strong></div>
+                    <div class="hours-row"><span>Sábado</span><strong>13:00 – 00:00</strong></div>
+                    <div class="hours-row"><span>Domingo e Segunda</span><span style="opacity:0.4; font-style:italic;">Descanso Semanal</span></div>
                 </div>
             </div>
         </aside>
 
-        <!-- COLUNA DIREITA: ABAS INTERATIVAS (CONTEÚDO E AÇÕES) -->
+        <!-- COLUNA DIREITA: TRABALHO INTERATIVO E MENUS COM ESTRELAS -->
         <main class="content-workspace">
             
-            <!-- Barra Navegacional Flutuante de Abas -->
+            <!-- Barra de Navegação por Abas -->
             <nav class="tabs-nav">
-                <div class="tab-trigger active" id="trigger-menu" onclick="alternarAba('screen-menu')">Menu</div>
-                <div class="tab-trigger" id="trigger-booking" onclick="alternarAba('screen-booking')">Reserva</div>
-                <div class="tab-trigger" id="trigger-space" onclick="alternarAba('screen-space')">O Espaço</div>
+                <div class="tab-trigger active" id="trigger-menu" onclick="alternarAba('screen-menu')">Menu / Serviços</div>
+                <div class="tab-trigger" id="trigger-booking" onclick="alternarAba('screen-booking')">Marcações</div>
+                <div class="tab-trigger" id="trigger-space" onclick="alternarAba('screen-space')">Localização</div>
             </nav>
 
-            <!-- ABA 1: CATÁLOGO / MENU INTERATIVO -->
+            <!-- ABA 1: CATÁLOGO DINÂMICO COM IMAGENS DE COMIDA E RATINGS -->
             <section class="workspace-card active" id="screen-menu">
                 <div class="section-header">
-                    <h2 class="section-title">Nossa Seleção</h2>
-                    <p class="section-subtitle">Toque num serviço para simular os valores</p>
+                    <h2 class="section-title">Nossas Especialidades</h2>
+                    <p class="section-subtitle">Toque numa opção para simular e escolher o seu serviço</p>
                 </div>
 
                 <div class="services-grid" id="dyn-services-container">
-                    <!-- Injetado dinamicamente por Javascript -->
+                    <!-- Injetado via JavaScript de forma instantânea -->
                 </div>
 
                 <div class="checkout-summary">
-                    <text>Valor do Serviço Selecionado</text>
+                    <text>Subtotal Selecionado</text>
                     <div class="total-price" id="dyn-total-label">0.00€</div>
                 </div>
                 
-                <button class="btn-luxury-action" style="margin-top: 25px;" onclick="alternarAba('screen-booking')">Seguir Para Agendamento</button>
+                <button class="btn-luxury-action" style="margin-top: 25px;" onclick="alternarAba('screen-booking')">Prosseguir para Agendamento</button>
             </section>
 
-            <!-- ABA 2: FORMULÁRIO DE AGENDAMENTO INTELIGENTE -->
+            <!-- ABA 2: FORMULÁRIO DE MARCAÇÃO WHATSAPP -->
             <section class="workspace-card" id="screen-booking">
                 <div class="section-header">
-                    <h2 class="section-title">Agendamento Online</h2>
-                    <p class="section-subtitle">Reserve a sua hora em tempo real</p>
+                    <h2 class="section-title">Agendamento de Mesa / Cadeira</h2>
+                    <p class="section-subtitle">Reserve o seu momento de forma totalmente digital</p>
                 </div>
 
                 <div class="form-wrapper">
                     <div class="input-block">
-                        <label>Serviço Selecionado</label>
+                        <label>Opção Escolhida</label>
                         <select class="input-element" id="f-service-select" onchange="sincronizarDropdownParaCard()"></select>
                     </div>
                     <div class="input-block">
-                        <label>Escolha o Dia</label>
+                        <label>Escolha a Data</label>
                         <input type="date" class="input-element" id="f-date-input">
                     </div>
                     <div class="input-block">
-                        <label>Horário Disponível</label>
+                        <label>Horário Pretendido</label>
                         <select class="input-element" id="f-hour-select">
-                            <option>09:30</option><option>11:00</option><option>14:00</option>
-                            <option>15:30</option><option>17:00</option><option>18:30</option>
+                            <option>12:30</option><option>14:00</option><option>19:30</option>
+                            <option>21:00</option><option>22:30</option>
                         </select>
                     </div>
 
-                    <button class="btn-luxury-action" style="margin-top: 15px;" onclick="enviarPedidoWhatsApp()">Confirmar via WhatsApp</button>
+                    <button class="btn-luxury-action" style="margin-top: 15px;" onclick="enviarPedidoWhatsApp()">Submeter Reserva via WhatsApp</button>
                 </div>
 
-                <!-- Mais conteúdo para enriquecer o site -->
                 <div class="highlights-container">
                     <div class="highlight-mini-box">
-                        <h5>Aviso Importante</h5>
-                        <p>Cancelamentos devem ser efetuados com 2 horas de antecedência.</p>
+                        <h5>Aviso de Tolerância</h5>
+                        <p>Garantimos a mesa ou cadeira selecionada até 15 minutos após o horário marcado.</p>
                     </div>
                     <div class="highlight-mini-box">
-                        <h5>Suporte VIP</h5>
-                        <p>Dificuldades com o agendamento eletrónico? Ligue-nos diretamente.</p>
+                        <h5>Pedidos Especiais</h5>
+                        <p>Restrições alimentares ou pedidos específicos podem ser detalhados no WhatsApp.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- ABA 3: LOCALIZAÇÃO COM LAZY LOADING -->
+            <!-- ABA 3: GOOGLE MAPS LAZY-LOADED -->
             <section class="workspace-card" id="screen-space">
                 <div class="section-header">
-                    <h2 class="section-title">Onde Nos Encontrar</h2>
-                    <p class="section-subtitle" id="dyn-address-label">Carregando morada institucional...</p>
+                    <h2 class="section-title">Onde Estamos Localizados</h2>
+                    <p class="section-subtitle" id="dyn-address-label">A ler morada oficial corporativa...</p>
                 </div>
 
                 <div class="map-wrapper-box" id="dyn-map-lazy-holder">
-                    <div style="padding:160px 0; text-align:center; font-size:12px; opacity:0.3; letter-spacing:2px; text-transform:uppercase;">A carregar módulo de mapas...</div>
+                    <div style="padding:170px 0; text-align:center; font-size:12px; opacity:0.3; letter-spacing:2px; text-transform:uppercase;">A carregar mapa interativo...</div>
                 </div>
             </section>
 
         </main>
 
         <footer class="novapixel-footer">
-            Design de Alta Fidelidade Executado por NovaPixel &copy; 2026
+            Desenvolvido por NovaPixel &copy; 2026 &bull; Todos os direitos reservados.
         </footer>
     </div>
 
     <script>
-        // 1. Captura e Tratamento de Dados via URL Seguro
-        const params deUrl = new URLSearchParams(window.location.search);
-        const businessName = params deUrl.get('n') || "Conceito Exclusivo";
-        const tokenCriptografado = params deUrl.get('v');
+        // 1. Descodificação Segura dos Parâmetros da URL
+        const paramsUrl = new URLSearchParams(window.location.search);
+        const businessName = paramsUrl.get('n') || "Conceito Exclusivo";
+        const tokenCriptografado = paramsUrl.get('v');
 
         let bType = "restaurante";
         let bPhone = "351900000000";
-        let bAddress = "Portugal";
+        let bAddress = "Lisboa, Portugal";
 
         if (tokenCriptografado) {
             try {
                 const decodificado = atob(decodeURIComponent(tokenCriptografado));
                 const segmentos = decodificado.split('|');
                 if (segmentos.length >= 4) {
-                    bType = segmentos[0];
+                    bType = segmentos[0].toLowerCase().trim();
                     bPhone = segmentos[1];
                     bAddress = segmentos[3];
                 }
-            } catch (e) { console.error("Falha na decodificação estrutural."); }
+            } catch (e) { console.error("Erro na leitura encriptada."); }
         }
 
-        // Injetar dados básicos tratados
+        // Atualizar textos base institucionais
         document.getElementById('dyn-main-name').innerText = businessName;
         document.getElementById('dyn-address-label').innerText = bAddress;
         document.getElementById('f-date-input').valueAsDate = new Date();
 
-        // 2. Base de Dados Temática de Luxo (Alta Performance)
+        // 2. Base de Dados Estética, de Imagens Reais e de Ratings com Estrelas
         const baseDeTemas = {
             restaurante: {
                 slogan: "Alta Gastronomia & Cozinha de Autor",
-                story: `A ${businessName} nasceu sob a premissa de redefinir a experiência da alta gastronomia culinária. Sob a direção de técnicas internacionais refinadas e ingredientes orgânicos selecionados na própria manhã, cada prato é uma sinfonia visual e sensorial de sabores autênticos.`,
+                heroImg: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80", // Foto de Restaurante de Luxo
+                story: `O projeto gastronómico da ${businessName} foi desenhado para evocar sensações únicas através do paladar. Orientados pelo respeito absoluto à sazonalidade e frescura dos ingredientes, oferecemos menus de autor sofisticados com uma apresentação impecável.`,
                 servicos: [
-                    { id: "r1", nome: "Menu de Degustação Signature", desc: "Percurso completo em 3 atos planeado minuciosamente pelo nosso Chef.", preco: 29.00 },
-                    { id: "r2", nome: "Filete Premium ao Molho de Trufas", desc: "Corte nobre maturado, esmagada de batata artesanal e infusão trufada.", preco: 19.50 },
-                    { id: "r3", nome: "Sobremesa Texturas de Cacau", desc: "Folhado crocante com ganache belga aquecida e gelado de fava tonka.", preco: 7.50 }
+                    { 
+                        id: "r1", nome: "Menu Degustação Signature", 
+                        desc: "Percurso gourmet completo em 3 atos planeado pelo Chef.", 
+                        preco: 29.00, nota: "5.0", estrelas: "★★★★★", avaliacoes: 142,
+                        img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=200&q=80"
+                    },
+                    { 
+                        id: "r2", nome: "Filete Premium ao Molho de Trufas", 
+                        desc: "Corte nobre grelhado, esmagada artesanal e infusão trufada.", 
+                        preco: 19.50, nota: "4.9", estrelas: "★★★★★", avaliacoes: 98,
+                        img: "https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=200&q=80"
+                    },
+                    { 
+                        id: "r3", nome: "Sobremesa Texturas de Cacau", 
+                        desc: "Ganache belga aquecida, crocante folhado e fava tonka.", 
+                        preco: 7.50, nota: "4.8", estrelas: "★★★★☆", avaliacoes: 76,
+                        img: "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=200&q=80"
+                    }
                 ]
             },
             barbearia: {
                 slogan: "Corte, Toalha Quente & Visagismo",
-                story: `Na ${businessName}, aliamos a essência da barbearia clássica de culto com as técnicas de engenharia estética e visagismo modernas. Um ecossistema puramente masculino focado no cavalheiro contemporâneo que valoriza o tempo, o detalhe e o visual cirúrgico.`,
+                heroImg: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80", // Foto de Barbearia Vintage de Luxo
+                story: `Na ${businessName}, aliamos a arte tradicional da barbearia de culto às exigências de imagem do homem moderno. Disfrute de um ambiente industrial reservado com atendimento personalizado e técnicas avançadas de visagismo.`,
                 servicos: [
-                    { id: "b1", nome: "Corte de Cabelo Executivo", desc: "Análise de visagismo, lavagem capilar terapêutica e finalização premium.", preco: 18.00 },
-                    { id: "b2", nome: "Ritual de Barba à Navalha Clássica", desc: "Abertura de poros com toalha a vapor, óleos botânicos e massagem relaxante.", preco: 14.00 },
-                    { id: "b3", nome: "Alinhamento e Terapia Capilar", desc: "Esfoliação purificante contra a oleosidade e tónico estimulante ativo.", preco: 10.00 }
+                    { 
+                        id: "b1", nome: "Corte de Cabelo Executivo", 
+                        desc: "Lavagem terapêutica, corte à tesoura e estilização pomada mate.", 
+                        preco: 18.00, nota: "4.9", estrelas: "★★★★★", avaliacoes: 215,
+                        img: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=200&q=80"
+                    },
+                    { 
+                        id: "b2", nome: "Ritual Barba Real Navalha", 
+                        desc: "Toalha quente a vapor, óleos essenciais e massagem facial.", 
+                        preco: 14.00, nota: "5.0", estrelas: "★★★★★", avaliacoes: 184,
+                        img: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=200&q=80"
+                    },
+                    { 
+                        id: "b3", nome: "Terapia Capilar Purificante", 
+                        desc: "Esfoliação ativa do couro cabeludo e aplicação antiqueda.", 
+                        preco: 10.00, nota: "4.7", estrelas: "★★★★☆", avaliacoes: 53,
+                        img: "https://images.unsplash.com/photo-1535406208535-1429839cfd13?auto=format&fit=crop&w=200&q=80"
+                    }
                 ]
             }
         };
 
+        // Ativar configurações do tema correspondente
         const configAtiva = baseDeTemas[bType] || baseDeTemas.restaurante;
         document.getElementById('app-root-viewport').className = `theme-${bType}`;
         document.getElementById('dyn-slogan').innerText = configAtiva.slogan;
         document.getElementById('dyn-story-paragraph').innerText = configAtiva.story;
+        document.getElementById('dyn-sidebar-img').src = configAtiva.heroImg;
 
-        // Renderização dos serviços na Grid Expandida
+        // Renderização Dinâmica dos Pratos/Serviços com Imagens e Notas de Estrelas
         let gridHTML = "";
         let comboHTML = "";
+        
         configAtiva.servicos.forEach((s, idx) => {
             const isSelected = idx === 0 ? "selected" : "";
             gridHTML += `
                 <div class="service-item-card ${isSelected}" id="card-id-${s.id}" onclick="selecionarServicoExpress('${s.id}', ${s.preco})">
+                    <div class="service-img-wrapper">
+                        <img src="${s.img}" alt="${s.nome}" loading="lazy">
+                    </div>
                     <div class="service-info">
                         <h4>${s.nome}</h4>
                         <p>${s.desc}</p>
+                        <div class="service-rating">
+                            <span class="stars-gold">${s.estrelas}</span>
+                            <span>${s.nota}</span>
+                            <span class="review-count">(${s.avaliacoes} críticas)</span>
+                        </div>
                     </div>
                     <div class="service-price">${s.preco.toFixed(2)}€</div>
                 </div>
             `;
             comboHTML += `<option value="${s.nome}" data-val="${s.preco}" id="opt-id-${s.id}">${s.nome} — ${s.preco.toFixed(2)}€</option>`;
         });
+        
         document.getElementById('dyn-services-container').innerHTML = gridHTML;
         document.getElementById('f-service-select').innerHTML = comboHTML;
 
-        // Estados Iniciais do Preço Dinâmico
+        // Preço Inicial Configurado
         let precoSelecionado = configAtiva.servicos[0].preco;
         document.getElementById('dyn-total-label').innerText = `${precoSelecionado.toFixed(2)}€`;
 
-        // 3. Mecânica do Preço Dinâmico Interativo
+        // 3. Mecânica de Sincronização e Preço Dinâmico
         function selecionarServicoExpress(id, preco) {
             document.querySelectorAll('.service-item-card').forEach(c => c.classList.remove('selected'));
             document.getElementById(`card-id-${id}`).classList.add('selected');
@@ -430,7 +501,7 @@
             document.getElementById('dyn-total-label').innerText = `${preco.toFixed(2)}€`;
         }
 
-        // 4. Alternância de Abas Nativa e Lazy Loading de Mapas (Velocidade Extrema)
+        // 4. Gestor de Abas Nativo e Lazy Loading Isolado de Mapas
         let mapaInjetado = false;
         function alternarAba(idAlvo) {
             document.querySelectorAll('.workspace-card').forEach(card => card.classList.remove('active'));
@@ -438,11 +509,10 @@
 
             document.getElementById(idAlvo).classList.add('active');
             
-            // Ativar gatilho visual correto
             const mapeamentoAbas = { 'screen-menu': 'trigger-menu', 'screen-booking': 'trigger-booking', 'screen-space': 'trigger-space' };
             document.getElementById(mapeamentoAbas[idAlvo]).classList.add('active');
 
-            // Lazy Loading real: o mapa só é processado se o utilizador clicar na aba
+            // O mapa só é processado se e quando o cliente clicar na aba "Localização"
             if(idAlvo === 'screen-space' && !mapaInjetado) {
                 document.getElementById('dyn-map-lazy-holder').innerHTML = `
                     <iframe src="https://maps.google.com/maps?q=${encodeURIComponent(bAddress)}&t=&z=16&ie=UTF-8&iwloc=&output=embed"></iframe>
@@ -451,7 +521,7 @@
             }
         }
 
-        // 5. Motor de Processamento de Envio do WhatsApp
+        // 5. Motor de Envio Automatizado para o WhatsApp
         function enviarPedidoWhatsApp() {
             const select = document.getElementById('f-service-select');
             const servicoNome = select.options[select.selectedIndex].text.split('—')[0].trim();
@@ -464,11 +534,11 @@
                 if(blocos.length === 3) dataFormatada = `${blocos[2]}/${blocos[1]}/${blocos[0]}`;
             }
 
-            const textoMensagem = `Olá! Acedi à vossa nova plataforma premium gerada pela NovaPixel e pretendo efetuar uma reserva:\n\n` +
-                                 `• *Serviço Escolhido:* ${servicoNome}\n` +
+            const textoMensagem = `Olá! Acedi à vossa plataforma premium desenvolvida pela NovaPixel e pretendo efetuar uma reserva:\n\n` +
+                                 `• *Opção Selecionada:* ${servicoNome}\n` +
                                  `• *Data:* ${dataFormatada}\n` +
                                  `• *Horário:* ${horaNome}\n\n` +
-                                 `Agradeço a validação da vossa parte.`;
+                                 `Agradeço desde já a confirmação de vaga corporativa da vossa parte.`;
 
             const linkFinal = `https://wa.me/351${bPhone}?text=${encodeURIComponent(textoMensagem)}`;
             window.open(linkFinal, '_blank');
