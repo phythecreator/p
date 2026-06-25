@@ -3,187 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protótipo Digital - NovaPixel</title>
-    <!-- Fontes Premium do Google -->
+    <title>Interface Corporativa - NovaPixel</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,400&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column;
-            justify-content: center; 
-            align-items: center;
+        
+        body {
+            min-height: 100vh;
             color: #ffffff;
             background-size: cover;
             background-position: center;
-            transition: all 0.5s ease;
+            background-attachment: fixed;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
-        }
-
-        /* Barra Superior de Aviso de Teste */
-        .test-badge {
-            position: absolute;
-            top: 0; left: 0; width: 100%;
-            background: rgba(212, 175, 55, 0.2);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            text-align: center;
-            padding: 10px;
-            font-size: 12px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            letter-spacing: 1px;
-            z-index: 10;
-            color: #d4af37;
+            display: flex;
+            flex-direction: column;
         }
 
         .overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.85) 100%);
             z-index: 1;
         }
 
-        /* Estrutura Base do Cartão Móvel */
-        .card {
+        /* BANNER SUPERIOR INFORMATIVO */
+        .premium-badge {
             position: relative;
-            z-index: 2;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 28px;
-            padding: 45px 30px;
+            z-index: 10;
+            width: 100%;
+            background: rgba(197, 160, 89, 0.15);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             text-align: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-            margin-top: 40px;
+            padding: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--accent-color);
         }
 
-        .logo-container {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 25px auto;
-            border-radius: 50%;
+        /* NAVBAR PREMIUM (Inspirada em image_312448.png e image_317981.png) */
+        header {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand-logo {
+            font-weight: 700;
+            letter-spacing: 3px;
+            font-size: 16px;
+        }
+        nav { display: flex; gap: 30px; }
+        nav a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.7);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        nav a:hover, nav a.active { color: var(--accent-color); }
+
+        /* HERO MAIN CONTAINER (Inspirado na centralização de image_317a1b.png) */
+        main {
+            flex: 1;
+            position: relative;
+            z-index: 5;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px solid var(--accent-color);
+            padding: 40px 20px;
         }
-        .logo-container svg { width: 45px; height: 45px; fill: var(--accent-color); }
 
-        h1 { font-size: 26px; margin-bottom: 8px; font-weight: 700; }
-        .subtitle { font-size: 12px; margin-bottom: 35px; text-transform: uppercase; letter-spacing: 3px; }
+        .view-section { display: none; width: 100%; max-width: 650px; text-align: center; animation: smoothUp 0.6s forwards; }
+        .view-section.active { display: block; }
 
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            margin-bottom: 14px;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        @keyframes smoothUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* MOLDURA ELEGANTE (Estilo image_317a1b.png) */
+        .luxury-frame {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 40px;
+            border-radius: 4px;
+            box-shadow: 0 40px 90px rgba(0,0,0,0.7);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
         }
-        .btn-primary { background: var(--accent-color); color: var(--btn-text-color); font-weight: 700; }
-        .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.2); }
-        .btn-secondary { background: rgba(255, 255, 255, 0.06); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .btn-secondary:hover { background: rgba(255, 255, 255, 0.12); }
 
-        .footer-brand { margin-top: 30px; font-size: 9px; color: rgba(255, 255, 255, 0.3); letter-spacing: 2px; font-family: 'Montserrat', sans-serif; }
+        .concept-title { font-size: 42px; font-weight: 400; margin-bottom: 15px; line-height: 1.2; }
+        .concept-sub { font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 40px; }
+
+        /* LISTA DE ARTIGOS / PREÇOS EDITORIAL */
+        .editorial-menu { text-align: left; margin: 20px 0 40px 0; }
+        .editorial-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; }
+        .editorial-name { font-size: 18px; font-weight: 500; }
+        .editorial-line { flex: 1; border-bottom: 1px dashed rgba(255,255,255,0.2); margin: 0 15px; }
+        .editorial-price { font-family: 'Montserrat', sans-serif; font-weight: 600; color: var(--accent-color); }
+
+        /* GOOGLE MAPS INTEGRADO DINAMICAMENTE */
+        .map-wrapper {
+            width: 100%; height: 350px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 4px; overflow: hidden; margin-top: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .map-wrapper iframe { width: 100%; height: 100%; border: none; }
+
+        /* BOTÕES FORMATO EXECUTIVO */
+        .cta-btn {
+            display: inline-block; width: 100%; max-width: 320px;
+            padding: 18px 30px; background: var(--accent-color);
+            color: var(--btn-text); text-decoration: none;
+            font-size: 13px; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; border-radius: 2px;
+            transition: all 0.3s ease; box-shadow: 0 10px 30px var(--shadow-btn);
+            border: none; cursor: pointer;
+        }
+        .cta-btn:hover { transform: translateY(-3px); filter: brightness(1.15); box-shadow: 0 15px 40px var(--shadow-btn); }
+
+        footer.site-footer {
+            position: relative; z-index: 5; text-align: center;
+            padding: 30px; font-family: 'Montserrat', sans-serif;
+            font-size: 9px; letter-spacing: 3px; color: rgba(255,255,255,0.25);
+        }
 
         /* =====================================================================
-           OS 3 TEMAS EXCLUSIVOS (Designs Completamente Diferentes)
+           TEMAS VISUAIS DE LUXO (Cores e Fontes Customizadas)
         ===================================================================== */
-        
-        /* TEMPLATE 1: BARBEARIA (Clássico, Escuro, Dourado Real) */
         body.theme-barbearia {
             font-family: 'Cinzel', serif;
-            background-image: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1000');
-            --accent-color: #c5a059;
-            --btn-text-color: #0b0b0b;
+            background-image: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1200');
+            --accent-color: #c5a059; --btn-text: #0a0a0a; --shadow-btn: rgba(197, 160, 89, 0.2);
         }
-        .theme-barbearia .overlay { background: linear-gradient(180deg, rgba(10,10,10,0.85) 0%, rgba(20,20,20,0.95) 100%); }
-        .theme-barbearia .card { background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(197, 160, 89, 0.2); }
-
-        /* TEMPLATE 2: RESTAURANTE (Minimalista, Sofisticado, Verde Esmeralda) */
         body.theme-restaurante {
             font-family: 'Cormorant Garamond', serif;
-            background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000');
-            --accent-color: #10b981;
-            --btn-text-color: #ffffff;
+            background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200');
+            --accent-color: #10b981; --btn-text: #ffffff; --shadow-btn: rgba(16, 185, 129, 0.2);
         }
-        .theme-restaurante .overlay { background: rgba(15, 23, 42, 0.8); }
-        .theme-restaurante .card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 0px 40px 0px 40px; }
-        .theme-restaurante h1 { font-style: italic; font-weight: 400; font-size: 30px; }
-
-        /* TEMPLATE 3: CAFÉ (Moderno, Escandinavo, Tons Pastel Quentes) */
         body.theme-cafe {
             font-family: 'Montserrat', sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1000');
-            --accent-color: #dd9064;
-            --btn-text-color: #ffffff;
+            background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1200');
+            --accent-color: #e2976b; --btn-text: #ffffff; --shadow-btn: rgba(226, 151, 107, 0.2);
         }
-        .theme-cafe .overlay { background: rgba(43, 31, 26, 0.85); }
-        .theme-cafe .card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.15); }
-        .theme-cafe .logo-container { border-radius: 16px; }
     </style>
 </head>
-<body class="theme-restaurante" id="body-theme">
+<body class="theme-restaurante" id="body-render">
 
-    <!-- Barra Dinâmica informativa para o Cliente -->
-    <div class="test-badge" id="badge-text">DEMONSTRAÇÃO DE CONCEITO EXCLUSIVA</div>
-
+    <div class="premium-badge" id="alert-banner">AMBIENTE DE TESTES CORPORATIVO</div>
     <div class="overlay"></div>
 
-    <div class="card">
-        <div class="logo-container" id="logo-box"></div>
+    <header>
+        <div class="brand-logo" id="header-brand">NOVAPIXEL.</div>
+        <nav id="navigation-menu">
+            <a onclick="trocarEcra('sec-home')" id="lnk-sec-home" class="active">Apresentação</a>
+            <a onclick="trocarEcra('sec-menu')" id="lnk-sec-menu">Serviços & Menu</a>
+            <a onclick="trocarEcra('sec-local')" id="lnk-sec-local">Localização</a>
+        </nav>
+    </header>
 
-        <h1 id="client-name">Carregando...</h1>
-        <p class="subtitle" id="client-sub">Protótipo Funcional</p>
+    <main>
+        <!-- SECÇÃO 1: APRESENTAÇÃO COORDENADA -->
+        <div class="view-section active" id="sec-home">
+            <div class="luxury-frame">
+                <h1 class="concept-title" id="lbl-nome">Carregando Proposta...</h1>
+                <p class="concept-sub" id="lbl-sub">Solução Digital Exclusiva</p>
+                <button class="cta-btn" onclick="trocarEcra('sec-menu')">Explorar Protótipo</button>
+            </div>
+        </div>
 
-        <!-- Botões Otimizados para Mobile -->
-        <a class="btn btn-primary" id="main-btn">Consultar Serviços</a>
-        <a class="btn btn-secondary">Efetuar Reserva</a>
-        <a class="btn btn-secondary">Contactos & Horário</a>
+        <!-- SECÇÃO 2: SERVIÇOS / MENU INTERATIVO -->
+        <div class="view-section" id="sec-menu">
+            <div class="luxury-frame">
+                <h1 class="concept-title" style="font-size: 28px; margin-bottom: 10px;">Catálogo Digital</h1>
+                <p class="concept-sub" style="margin-bottom: 30px;">Demonstração de Estrutura</p>
+                
+                <div class="editorial-menu" id="box-itens">
+                    <!-- Injetado dinamicamente -->
+                </div>
 
-        <div class="footer-brand">DESENVOLVIDO POR NOVAPIXEL</div>
-    </div>
+                <a class="cta-btn" id="link-whatsapp" target="_blank">Efetuar Reserva Direta</a>
+            </div>
+        </div>
+
+        <!-- SECÇÃO 3: LOCALIZAÇÃO MAPS AUTOMÁTICA -->
+        <div class="view-section" id="sec-local">
+            <div class="luxury-frame">
+                <h1 class="concept-title" style="font-size: 28px; margin-bottom: 10px;">O Vosso Espaço</h1>
+                <p class="concept-sub" id="lbl-morada-texto">Detetando Localização...</p>
+                
+                <div class="map-wrapper" id="box-mapa">
+                    <!-- Iframe do Maps Injetado aqui -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        PROTOTYPED BY NOVAPIXEL AGENCY — ALL RIGHTS RESERVED
+    </footer>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const nome = urlParams.get('n') || "O Vosso Espaço";
-        const tema = urlParams.get('t') || "restaurante";
+        // 1. Extração e Descodificação Segura dos Parâmetros
+        const parametros = new URLSearchParams(window.location.search);
+        const nomeEmpresa = parametros.get('n') || "Estabelecimento Corporativo";
+        const tokenOculto = parametros.get('v');
 
-        document.getElementById('client-name').innerText = nome;
+        let tipoNegocio = "restaurante";
+        let telefoneNumero = "351900000000";
+        let emailCorporativo = "suporte@novapixel.pt";
+        let moradaFisica = "Portugal";
 
-        const body = document.getElementById('body-theme');
-        const sub = document.getElementById('client-sub');
-        const mainBtn = document.getElementById('main-btn');
-        const badge = document.getElementById('badge-text');
-        const logoBox = document.getElementById('logo-box');
+        if (tokenOculto) {
+            try {
+                // Descodifica o Base64 oculto de volta a texto limpo
+                const textoDescodificado = atob(decodeURIComponent(tokenOculto));
+                const partes = textoDescodificado.split('|');
+                if (partes.length === 4) {
+                    tipoNegocio = partes[0];
+                    telefoneNumero = partes[1];
+                    emailCorporativo = partes[2];
+                    moradaFisica = partes[3];
+                }
+            } catch (e) {
+                console.error("Erro na leitura de dados seguros.");
+            }
+        }
 
-        badge.innerText = `PROPOSTA INTERATIVA DIGITAL PARA: ${nome.toUpperCase()} (VERSÃO DE TESTE)`;
+        // 2. Distribuição de Informação pelos Componentes do Layout
+        document.getElementById('lbl-nome').innerText = nomeEmpresa;
+        document.getElementById('alert-banner').innerText = `PROPOSTA DIGITAL EXCLUSIVA PARA: ${nomeEmpresa.toUpperCase()} (AMBIENTE DE TESTE)`;
+        document.getElementById('header-brand').innerText = `${nomeEmpresa.toUpperCase()}.`;
+        document.getElementById('lbl-morada-texto').innerText = moradaFisica;
 
-        // Ativação dos diferentes templates dinâmicos
-        if (tema === 'barbearia') {
-            body.className = "theme-barbearia";
-            sub.innerText = "Experiência de Barbearia Premium";
-            mainBtn.innerText = "Consultar Tabela de Serviços";
-            logoBox.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 12c-.55 0-1-.45-1-1V5c0-.55-.45-1-1-1s-1 .45-1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V3c0-.55-.45-1-1-1s-1 .45-1 1v8c0 .55-.45 1-1 1s-1-.45-1-1V5c0-.55-.45-1-1-1s-1 .45-1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V2c0-.55-.45-1-1-1s-1 .45-1 1v13.47c0 .5-.2 1-.55 1.35L2.34 18.4c-.4.4-.4 1.02 0 1.41l.71.71c.39.39 1.02.39 1.41 0l3.05-3.05c.35-.35.85-.55 1.35-.55H19c1.1 0 2-.9 2-2v-3c0-.55-.45-1-1-1z"/></svg>`;
-        } else if (tema === 'cafe') {
-            body.className = "theme-cafe";
-            sub.innerText = "Cafetaria Especializada & Pastelaria";
-            mainBtn.innerText = "Consultar Menu do Espaço";
-            logoBox.innerHTML = `<svg viewBox="0 0 24 24"><path d="M2 21h18v-2H2v2zM20 8h-2V5h2v3zm2-5H4v14h14v-4h4V3zm-6 12H6V5h10v10z"/></svg>`;
+        const bodyAlvo = document.getElementById('body-render');
+        const subRotulo = document.getElementById('lbl-sub');
+        const contentorItens = document.getElementById('box-itens');
+
+        // 3. Calibração Temática (Inspirada no Layout Editorial)
+        if (tipoNegocio === 'barbearia') {
+            bodyAlvo.className = "theme-barbearia";
+            subRotulo.innerText = "Corte, Estilo & Identidade Masculina";
+            contentorItens.innerHTML = `
+                <div class="editorial-row"><span class="editorial-name">Styling de Cabelo Executivo</span><div class="editorial-line"></div><span class="editorial-price">18.00€</span></div>
+                <div class="editorial-row"><span class="editorial-name">Design de Barba e Toalha Vaporizada</span><div class="editorial-line"></div><span class="editorial-price">12.00€</span></div>
+                <div class="editorial-row"><span class="editorial-name">Tratamento Capilar Purificante</span><div class="editorial-line"></div><span class="editorial-price">8.00€</span></div>
+            `;
+        } else if (tipoNegocio === 'cafe') {
+            bodyAlvo.className = "theme-cafe";
+            subRotulo.innerText = "Cafetaria Fina & Pastelaria Artesanal";
+            contentorItens.innerHTML = `
+                <div class="editorial-row"><span class="editorial-name">Café de Especialidade Prensa Francesa</span><div class="editorial-line"></div><span class="editorial-price">3.00€</span></div>
+                <div class="editorial-row"><span class="editorial-name">Pastelaria Fina Selecionada</span><div class="editorial-line"></div><span class="editorial-price">2.50€</span></div>
+                <div class="editorial-row"><span class="editorial-name">Brunch Menu Assinado</span><div class="editorial-line"></div><span class="editorial-price">11.50€</span></div>
+            `;
         } else {
-            body.className = "theme-restaurante";
-            sub.innerText = "Carta Gastronómica Contemporânea";
-            mainBtn.innerText = "Consultar Menu Executivo";
-            logoBox.innerHTML = `<svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>`;
+            bodyAlvo.className = "theme-restaurante";
+            subRotulo.innerText = "Alta Cozinha & Experiência Gastronómica";
+            contentorItens.innerHTML = `
+                <div class="editorial-row"><span class="editorial-name">Menu de Degustação Principal</span><div class="editorial-line"></div><span class="editorial-price">24.50€</span></div>
+                <div class="editorial-row"><span class="editorial-name">Prato de Autor Sazonal</span><div class="editorial-line"></div><span class="editorial-price">16.00€</span></div>
+                <div class="editorial-row"><span class="editorial-name">Carta de Vinhos Selecionados (Garrafa)</span><div class="editorial-line"></div><span class="editorial-price">18.00€</span></div>
+            `;
+        }
+
+        // 4. Configuração das Ações Dinâmicas Reais (WhatsApp & Google Maps Iframe)
+        document.getElementById('link-whatsapp').href = `https://wa.me/351${telefoneNumero}?text=Olá!%20Acedi%20ao%20vosso%20protótipo%20digital%20desenvolvido%20pela%20NovaPixel%20e%20gostaria%20de%20esclarecer%20detalhes%20sobre%20os%20serviços%20da%20${encodeURIComponent(nomeEmpresa)}.`;
+        
+        // Injeta o mapa focado de forma exata na morada retirada do Bloco de Notas (CSV)
+        document.getElementById('box-mapa').innerHTML = `<iframe src="https://maps.google.com/maps?q=${encodeURIComponent(moradaFisica)}&t=&z=15&ie=UTF-8&iwloc=&output=embed"></iframe>`;
+
+        // 5. Navegação do Sistema Multi-Ecrãs
+        function trocarEcra(idSeccao) {
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('nav a').forEach(lnk => lnk.classList.remove('active'));
+            
+            document.getElementById(idSeccao).classList.add('active');
+            document.getElementById(`lnk-${idSeccao}`).classList.add('active');
         }
     </script>
 </body>
