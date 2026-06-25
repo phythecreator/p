@@ -3,89 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="site-title">Website Oficial</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Protótipo Digital - NovaPixel</title>
+    <!-- Fontes Premium do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+            color: #ffffff;
+            background-size: cover;
+            background-position: center;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        /* Barra Superior de Aviso de Teste */
+        .test-badge {
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            background: rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            z-index: 10;
+            color: #d4af37;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+        }
+
+        /* Estrutura Base do Cartão Móvel */
+        .card {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 28px;
+            padding: 45px 30px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            margin-top: 40px;
+        }
+
+        .logo-container {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 25px auto;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--accent-color);
+        }
+        .logo-container svg { width: 45px; height: 45px; fill: var(--accent-color); }
+
+        h1 { font-size: 26px; margin-bottom: 8px; font-weight: 700; }
+        .subtitle { font-size: 12px; margin-bottom: 35px; text-transform: uppercase; letter-spacing: 3px; }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 14px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary { background: var(--accent-color); color: var(--btn-text-color); font-weight: 700; }
+        .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.2); }
+        .btn-secondary { background: rgba(255, 255, 255, 0.06); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.12); }
+
+        .footer-brand { margin-top: 30px; font-size: 9px; color: rgba(255, 255, 255, 0.3); letter-spacing: 2px; font-family: 'Montserrat', sans-serif; }
+
+        /* =====================================================================
+           OS 3 TEMAS EXCLUSIVOS (Designs Completamente Diferentes)
+        ===================================================================== */
+        
+        /* TEMPLATE 1: BARBEARIA (Clássico, Escuro, Dourado Real) */
+        body.theme-barbearia {
+            font-family: 'Cinzel', serif;
+            background-image: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1000');
+            --accent-color: #c5a059;
+            --btn-text-color: #0b0b0b;
+        }
+        .theme-barbearia .overlay { background: linear-gradient(180deg, rgba(10,10,10,0.85) 0%, rgba(20,20,20,0.95) 100%); }
+        .theme-barbearia .card { background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(197, 160, 89, 0.2); }
+
+        /* TEMPLATE 2: RESTAURANTE (Minimalista, Sofisticado, Verde Esmeralda) */
+        body.theme-restaurante {
+            font-family: 'Cormorant Garamond', serif;
+            background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000');
+            --accent-color: #10b981;
+            --btn-text-color: #ffffff;
+        }
+        .theme-restaurante .overlay { background: rgba(15, 23, 42, 0.8); }
+        .theme-restaurante .card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 0px 40px 0px 40px; }
+        .theme-restaurante h1 { font-style: italic; font-weight: 400; font-size: 30px; }
+
+        /* TEMPLATE 3: CAFÉ (Moderno, Escandinavo, Tons Pastel Quentes) */
+        body.theme-cafe {
+            font-family: 'Montserrat', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1000');
+            --accent-color: #dd9064;
+            --btn-text-color: #ffffff;
+        }
+        .theme-cafe .overlay { background: rgba(43, 31, 26, 0.85); }
+        .theme-cafe .card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.15); }
+        .theme-cafe .logo-container { border-radius: 16px; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans">
+<body class="theme-restaurante" id="body-theme">
 
-    <!-- Navbar -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <img id="site-logo" src="" alt="Logo" class="w-10 h-10 rounded-full object-cover shadow-sm bg-slate-200">
-                <span id="nav-name" class="text-xl font-black text-indigo-600 tracking-tight">Negócio</span>
-            </div>
-            <a href="#contacto" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl text-sm font-bold transition shadow-md shadow-indigo-600/20">Fazer Reserva</a>
-        </div>
-    </header>
+    <!-- Barra Dinâmica informativa para o Cliente -->
+    <div class="test-badge" id="badge-text">DEMONSTRAÇÃO DE CONCEITO EXCLUSIVA</div>
 
-    <!-- Hero Section -->
-    <section class="relative bg-slate-900 text-white py-32 px-6 overflow-hidden">
-        <div class="absolute inset-0 opacity-40 mix-blend-multiply">
-            <img id="hero-bg" src="" alt="Espaço" class="w-full h-full object-cover">
-        </div>
-        <div class="relative max-w-4xl mx-auto text-center">
-            <span class="bg-indigo-500/20 text-indigo-300 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-indigo-500/30">Proposta Exclusiva por NovaPixel</span>
-            <h1 class="text-4xl md:text-6xl font-black tracking-tight mt-6 mb-6 leading-tight">Leve a <span id="hero-name" class="text-indigo-400">sua empresa</span> ao próximo nível digital.</h1>
-            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10">Atraia mais clientes locais com um website ultra-rápido, moderno e totalmente adaptado a qualquer telemóvel.</p>
-            <a href="#contacto" class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition shadow-xl shadow-indigo-600/30">Quero este Website</a>
-        </div>
-    </section>
+    <div class="overlay"></div>
 
-    <!-- Serviços Prontos -->
-    <section class="py-24 max-w-6xl mx-auto px-6">
-        <div class="text-center max-w-2xl mx-auto mb-20">
-            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-4">Desenvolvido para dar Resultados</h2>
-            <p class="text-slate-600 text-lg">Este é um modelo interativo premium que planeámos para o vosso negócio de forma a destacar a vossa marca da concorrência.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
-                <div class="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 text-xl font-bold mb-6">📱</div>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">Design 100% Mobile</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">Mais de 85% dos clientes locais usam o telemóvel. O vosso site está preparado para ficar perfeito em qualquer ecrã.</p>
-            </div>
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
-                <div class="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 text-xl font-bold mb-6">⚡</div>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">Velocidade Incrível</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">Páginas lentas perdem clientes. Este site abre instantaneamente, ajudando a subir nas pesquisas do Google.</p>
-            </div>
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
-                <div class="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 text-xl font-bold mb-6">🎯</div>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">Focado em Vendas</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">Botões de chamada à ação claros para que os visitantes façam marcações ou liguem num clique.</p>
-            </div>
-        </div>
-    </section>
+    <div class="card">
+        <div class="logo-container" id="logo-box"></div>
 
-    <!-- Rodapé -->
-    <footer id="contacto" class="bg-slate-900 text-slate-400 py-16 px-6 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div>
-                <p id="footer-name" class="text-white font-black text-2xl mb-2">Negócio</p>
-                <p class="text-sm text-slate-500">Website estratégico demonstrativo criado por NovaPixel.</p>
-            </div>
-            <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50 text-center md:text-right">
-                <p class="text-white font-bold mb-1">Gostou da Demonstração?</p>
-                <p class="text-sm text-slate-400 mb-4">Podemos alterar cores, menus e textos conforme o vosso gosto.</p>
-                <p class="text-indigo-400 font-extrabold text-sm uppercase tracking-wider">Responda ao nosso Email para começar!</p>
-            </div>
-        </div>
-    </footer>
+        <h1 id="client-name">Carregando...</h1>
+        <p class="subtitle" id="client-sub">Protótipo Funcional</p>
 
-    <!-- SCRIPT CAMALEÃO: Faz a magia de ler o link -->
+        <!-- Botões Otimizados para Mobile -->
+        <a class="btn btn-primary" id="main-btn">Consultar Serviços</a>
+        <a class="btn btn-secondary">Efetuar Reserva</a>
+        <a class="btn btn-secondary">Contactos & Horário</a>
+
+        <div class="footer-brand">DESENVOLVIDO POR NOVAPIXEL</div>
+    </div>
+
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const nomeNegocio = params.get('nome') || 'O Seu Negócio';
-        const urlLogo = params.get('logo') || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe';
-        const urlFoto = params.get('foto') || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab';
+        const urlParams = new URLSearchParams(window.location.search);
+        const nome = urlParams.get('n') || "O Vosso Espaço";
+        const tema = urlParams.get('t') || "restaurante";
 
-        // Aplicar os dados do cliente no site em tempo real
-        document.getElementById('site-title').innerText = nomeNegocio + ' | Website Oficial';
-        document.getElementById('nav-name').innerText = nomeNegocio;
-        document.getElementById('hero-name').innerText = nomeNegocio;
-        document.getElementById('footer-name').innerText = nomeNegocio;
-        document.getElementById('site-logo').src = urlLogo;
-        document.getElementById('hero-bg').src = urlFoto;
+        document.getElementById('client-name').innerText = nome;
+
+        const body = document.getElementById('body-theme');
+        const sub = document.getElementById('client-sub');
+        const mainBtn = document.getElementById('main-btn');
+        const badge = document.getElementById('badge-text');
+        const logoBox = document.getElementById('logo-box');
+
+        badge.innerText = `PROPOSTA INTERATIVA DIGITAL PARA: ${nome.toUpperCase()} (VERSÃO DE TESTE)`;
+
+        // Ativação dos diferentes templates dinâmicos
+        if (tema === 'barbearia') {
+            body.className = "theme-barbearia";
+            sub.innerText = "Experiência de Barbearia Premium";
+            mainBtn.innerText = "Consultar Tabela de Serviços";
+            logoBox.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 12c-.55 0-1-.45-1-1V5c0-.55-.45-1-1-1s-1 .45-1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V3c0-.55-.45-1-1-1s-1 .45-1 1v8c0 .55-.45 1-1 1s-1-.45-1-1V5c0-.55-.45-1-1-1s-1 .45-1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V2c0-.55-.45-1-1-1s-1 .45-1 1v13.47c0 .5-.2 1-.55 1.35L2.34 18.4c-.4.4-.4 1.02 0 1.41l.71.71c.39.39 1.02.39 1.41 0l3.05-3.05c.35-.35.85-.55 1.35-.55H19c1.1 0 2-.9 2-2v-3c0-.55-.45-1-1-1z"/></svg>`;
+        } else if (tema === 'cafe') {
+            body.className = "theme-cafe";
+            sub.innerText = "Cafetaria Especializada & Pastelaria";
+            mainBtn.innerText = "Consultar Menu do Espaço";
+            logoBox.innerHTML = `<svg viewBox="0 0 24 24"><path d="M2 21h18v-2H2v2zM20 8h-2V5h2v3zm2-5H4v14h14v-4h4V3zm-6 12H6V5h10v10z"/></svg>`;
+        } else {
+            body.className = "theme-restaurante";
+            sub.innerText = "Carta Gastronómica Contemporânea";
+            mainBtn.innerText = "Consultar Menu Executivo";
+            logoBox.innerHTML = `<svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>`;
+        }
     </script>
 </body>
 </html>
