@@ -2,14 +2,19 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interface Corporativa - NovaPixel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Protótipo Exclusivo - NovaPixel</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,400&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
             min-height: 100vh;
@@ -17,282 +22,226 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: 'Montserrat', sans-serif;
             position: relative;
-            display: flex;
-            flex-direction: column;
+            padding-bottom: 90px; /* Espaço para o menu inferior */
         }
 
         .overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.85) 100%);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
             z-index: 1;
         }
 
-        /* BANNER SUPERIOR INFORMATIVO */
-        .premium-badge {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            background: rgba(197, 160, 89, 0.15);
-            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            text-align: center;
-            padding: 12px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            color: var(--accent-color);
+        /* BARRA SUPERIOR */
+        .top-bar {
+            position: relative; z-index: 10;
+            padding: 20px; text-align: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+        }
+        .demo-badge {
+            display: inline-block;
+            font-size: 9px; font-weight: 600; letter-spacing: 2px;
+            padding: 6px 12px; border-radius: 20px;
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2); text-transform: uppercase;
         }
 
-        /* NAVBAR PREMIUM (Inspirada em image_312448.png e image_317981.png) */
-        header {
-            position: relative;
-            z-index: 5;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 30px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .brand-logo {
-            font-weight: 700;
-            letter-spacing: 3px;
-            font-size: 16px;
-        }
-        nav { display: flex; gap: 30px; }
-        nav a {
-            text-decoration: none;
-            color: rgba(255,255,255,0.7);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-        nav a:hover, nav a.active { color: var(--accent-color); }
-
-        /* HERO MAIN CONTAINER (Inspirado na centralização de image_317a1b.png) */
+        /* CONTEÚDO PRINCIPAL */
         main {
-            flex: 1;
-            position: relative;
-            z-index: 5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
+            position: relative; z-index: 5;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 20px; min-height: 75vh;
         }
 
-        .view-section { display: none; width: 100%; max-width: 650px; text-align: center; animation: smoothUp 0.6s forwards; }
-        .view-section.active { display: block; }
+        .screen {
+            display: none; width: 100%; max-width: 500px;
+            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .screen.active { display: block; }
 
-        @keyframes smoothUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* MOLDURA ELEGANTE (Estilo image_317a1b.png) */
-        .luxury-frame {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 60px 40px;
-            border-radius: 4px;
-            box-shadow: 0 40px 90px rgba(0,0,0,0.7);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .concept-title { font-size: 42px; font-weight: 400; margin-bottom: 15px; line-height: 1.2; }
-        .concept-sub { font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 40px; }
-
-        /* LISTA DE ARTIGOS / PREÇOS EDITORIAL */
-        .editorial-menu { text-align: left; margin: 20px 0 40px 0; }
-        .editorial-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; }
-        .editorial-name { font-size: 18px; font-weight: 500; }
-        .editorial-line { flex: 1; border-bottom: 1px dashed rgba(255,255,255,0.2); margin: 0 15px; }
-        .editorial-price { font-family: 'Montserrat', sans-serif; font-weight: 600; color: var(--accent-color); }
-
-        /* GOOGLE MAPS INTEGRADO DINAMICAMENTE */
-        .map-wrapper {
-            width: 100%; height: 350px;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 4px; overflow: hidden; margin-top: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .map-wrapper iframe { width: 100%; height: 100%; border: none; }
-
-        /* BOTÕES FORMATO EXECUTIVO */
-        .cta-btn {
-            display: inline-block; width: 100%; max-width: 320px;
-            padding: 18px 30px; background: var(--accent-color);
-            color: var(--btn-text); text-decoration: none;
-            font-size: 13px; font-weight: 700; letter-spacing: 2px;
-            text-transform: uppercase; border-radius: 2px;
-            transition: all 0.3s ease; box-shadow: 0 10px 30px var(--shadow-btn);
-            border: none; cursor: pointer;
-        }
-        .cta-btn:hover { transform: translateY(-3px); filter: brightness(1.15); box-shadow: 0 15px 40px var(--shadow-btn); }
-
-        footer.site-footer {
-            position: relative; z-index: 5; text-align: center;
-            padding: 30px; font-family: 'Montserrat', sans-serif;
-            font-size: 9px; letter-spacing: 3px; color: rgba(255,255,255,0.25);
+        /* ESTRUTURA DO CARTÃO VIDRO (Glassmorphism) */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
 
-        /* =====================================================================
-           TEMAS VISUAIS DE LUXO (Cores e Fontes Customizadas)
-        ===================================================================== */
+        h1.title { font-family: 'Playfair Display', serif; font-size: 36px; line-height: 1.1; margin-bottom: 10px; }
+        p.subtitle { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; margin-bottom: 40px; }
+
+        /* LISTA EDITORIAL (Menus) */
+        .menu-list { text-align: left; margin-bottom: 30px; }
+        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .menu-item:last-child { border-bottom: none; }
+        .item-details h3 { font-size: 15px; font-weight: 500; }
+        .item-details p { font-size: 11px; opacity: 0.6; margin-top: 4px; }
+        .item-price { font-weight: 600; color: var(--accent); font-size: 16px; }
+
+        /* MAPA */
+        .map-container { width: 100%; height: 300px; border-radius: 16px; overflow: hidden; margin-top: 20px; }
+        .map-container iframe { width: 100%; height: 100%; border: none; }
+
+        /* BOTÃO PRINCIPAL */
+        .btn-action {
+            display: inline-block; width: 100%;
+            background: var(--accent); color: var(--btn-text);
+            padding: 18px; border-radius: 16px; text-decoration: none;
+            font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+            border: none; cursor: pointer; transition: 0.3s;
+        }
+        .btn-action:hover { transform: scale(0.98); opacity: 0.9; }
+
+        /* MENU DE NAVEGAÇÃO INFERIOR (Estilo App) */
+        .bottom-nav {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px; z-index: 50;
+            background: rgba(15, 15, 15, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 30px;
+            display: flex; justify-content: space-between; padding: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .nav-btn {
+            flex: 1; text-align: center; padding: 12px 0; color: rgba(255,255,255,0.5);
+            font-size: 11px; font-weight: 500; letter-spacing: 1px; cursor: pointer;
+            border-radius: 20px; transition: 0.3s; text-transform: uppercase;
+        }
+        .nav-btn.active { background: rgba(255,255,255,0.1); color: var(--accent); }
+
+        /* TEMAS */
         body.theme-barbearia {
-            font-family: 'Cinzel', serif;
-            background-image: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1200');
-            --accent-color: #c5a059; --btn-text: #0a0a0a; --shadow-btn: rgba(197, 160, 89, 0.2);
+            background-image: url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=1200');
+            --accent: #d4af37; --btn-text: #000;
         }
         body.theme-restaurante {
-            font-family: 'Cormorant Garamond', serif;
-            background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200');
-            --accent-color: #10b981; --btn-text: #ffffff; --shadow-btn: rgba(16, 185, 129, 0.2);
+            background-image: url('https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1200');
+            --accent: #e2a87a; --btn-text: #000;
         }
         body.theme-cafe {
-            font-family: 'Montserrat', sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1200');
-            --accent-color: #e2976b; --btn-text: #ffffff; --shadow-btn: rgba(226, 151, 107, 0.2);
+            background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1200');
+            --accent: #b18f6a; --btn-text: #fff;
         }
     </style>
 </head>
 <body class="theme-restaurante" id="body-render">
 
-    <div class="premium-badge" id="alert-banner">AMBIENTE DE TESTES CORPORATIVO</div>
     <div class="overlay"></div>
 
-    <header>
-        <div class="brand-logo" id="header-brand">NOVAPIXEL.</div>
-        <nav id="navigation-menu">
-            <a onclick="trocarEcra('sec-home')" id="lnk-sec-home" class="active">Apresentação</a>
-            <a onclick="trocarEcra('sec-menu')" id="lnk-sec-menu">Serviços & Menu</a>
-            <a onclick="trocarEcra('sec-local')" id="lnk-sec-local">Localização</a>
-        </nav>
-    </header>
+    <div class="top-bar">
+        <div class="demo-badge" id="badge-nome">Demonstração</div>
+    </div>
 
     <main>
-        <!-- SECÇÃO 1: APRESENTAÇÃO COORDENADA -->
-        <div class="view-section active" id="sec-home">
-            <div class="luxury-frame">
-                <h1 class="concept-title" id="lbl-nome">Carregando Proposta...</h1>
-                <p class="concept-sub" id="lbl-sub">Solução Digital Exclusiva</p>
-                <button class="cta-btn" onclick="trocarEcra('sec-menu')">Explorar Protótipo</button>
+        <div class="screen active" id="tab-home">
+            <div class="glass-card">
+                <h1 class="title" id="lbl-nome">A Carregar...</h1>
+                <p class="subtitle" id="lbl-sub">Conceito Digital</p>
+                <button class="btn-action" onclick="mudarSeparador('tab-menu')">Ver Serviços e Preços</button>
+                <div style="margin-top: 20px; font-size: 10px; opacity: 0.4;">ESTRUTURA DESENVOLVIDA POR NOVAPIXEL</div>
             </div>
         </div>
 
-        <!-- SECÇÃO 2: SERVIÇOS / MENU INTERATIVO -->
-        <div class="view-section" id="sec-menu">
-            <div class="luxury-frame">
-                <h1 class="concept-title" style="font-size: 28px; margin-bottom: 10px;">Catálogo Digital</h1>
-                <p class="concept-sub" style="margin-bottom: 30px;">Demonstração de Estrutura</p>
+        <div class="screen" id="tab-menu">
+            <div class="glass-card">
+                <h1 class="title" style="font-size: 28px;">O Nosso Menu</h1>
+                <p class="subtitle" style="margin-bottom: 20px;">Catálogo Demonstrativo</p>
                 
-                <div class="editorial-menu" id="box-itens">
-                    <!-- Injetado dinamicamente -->
-                </div>
+                <div class="menu-list" id="box-itens">
+                    </div>
 
-                <a class="cta-btn" id="link-whatsapp" target="_blank">Efetuar Reserva Direta</a>
+                <a class="btn-action" id="link-whatsapp" target="_blank" style="margin-top: 10px;">Efetuar Reserva / Contacto</a>
             </div>
         </div>
 
-        <!-- SECÇÃO 3: LOCALIZAÇÃO MAPS AUTOMÁTICA -->
-        <div class="view-section" id="sec-local">
-            <div class="luxury-frame">
-                <h1 class="concept-title" style="font-size: 28px; margin-bottom: 10px;">O Vosso Espaço</h1>
-                <p class="concept-sub" id="lbl-morada-texto">Detetando Localização...</p>
+        <div class="screen" id="tab-local">
+            <div class="glass-card">
+                <h1 class="title" style="font-size: 28px;">Localização</h1>
+                <p class="subtitle" id="lbl-morada-texto" style="margin-bottom: 10px; text-transform: none; letter-spacing: 1px;">A carregar mapa...</p>
                 
-                <div class="map-wrapper" id="box-mapa">
-                    <!-- Iframe do Maps Injetado aqui -->
-                </div>
+                <div class="map-container" id="box-mapa"></div>
             </div>
         </div>
     </main>
 
-    <footer class="site-footer">
-        PROTOTYPED BY NOVAPIXEL AGENCY — ALL RIGHTS RESERVED
-    </footer>
+    <nav class="bottom-nav">
+        <div class="nav-btn active" id="btn-tab-home" onclick="mudarSeparador('tab-home')">Início</div>
+        <div class="nav-btn" id="btn-tab-menu" onclick="mudarSeparador('tab-menu')">Menu</div>
+        <div class="nav-btn" id="btn-tab-local" onclick="mudarSeparador('tab-local')">Onde Estamos</div>
+    </nav>
 
     <script>
-        // 1. Extração e Descodificação Segura dos Parâmetros
         const parametros = new URLSearchParams(window.location.search);
-        const nomeEmpresa = parametros.get('n') || "Estabelecimento Corporativo";
+        const nomeEmpresa = parametros.get('n') || "O Vosso Espaço";
         const tokenOculto = parametros.get('v');
 
         let tipoNegocio = "restaurante";
         let telefoneNumero = "351900000000";
-        let emailCorporativo = "suporte@novapixel.pt";
         let moradaFisica = "Portugal";
 
         if (tokenOculto) {
             try {
-                // Descodifica o Base64 oculto de volta a texto limpo
                 const textoDescodificado = atob(decodeURIComponent(tokenOculto));
                 const partes = textoDescodificado.split('|');
-                if (partes.length === 4) {
+                if (partes.length >= 4) {
                     tipoNegocio = partes[0];
                     telefoneNumero = partes[1];
-                    emailCorporativo = partes[2];
                     moradaFisica = partes[3];
                 }
-            } catch (e) {
-                console.error("Erro na leitura de dados seguros.");
-            }
+            } catch (e) { console.error("Erro."); }
         }
 
-        // 2. Distribuição de Informação pelos Componentes do Layout
         document.getElementById('lbl-nome').innerText = nomeEmpresa;
-        document.getElementById('alert-banner').innerText = `PROPOSTA DIGITAL EXCLUSIVA PARA: ${nomeEmpresa.toUpperCase()} (AMBIENTE DE TESTE)`;
-        document.getElementById('header-brand').innerText = `${nomeEmpresa.toUpperCase()}.`;
+        document.getElementById('badge-nome').innerText = `${nomeEmpresa.toUpperCase()} - TESTE`;
         document.getElementById('lbl-morada-texto').innerText = moradaFisica;
 
         const bodyAlvo = document.getElementById('body-render');
         const subRotulo = document.getElementById('lbl-sub');
         const contentorItens = document.getElementById('box-itens');
 
-        // 3. Calibração Temática (Inspirada no Layout Editorial)
         if (tipoNegocio === 'barbearia') {
             bodyAlvo.className = "theme-barbearia";
-            subRotulo.innerText = "Corte, Estilo & Identidade Masculina";
+            subRotulo.innerText = "Excelência em Grooming";
             contentorItens.innerHTML = `
-                <div class="editorial-row"><span class="editorial-name">Styling de Cabelo Executivo</span><div class="editorial-line"></div><span class="editorial-price">18.00€</span></div>
-                <div class="editorial-row"><span class="editorial-name">Design de Barba e Toalha Vaporizada</span><div class="editorial-line"></div><span class="editorial-price">12.00€</span></div>
-                <div class="editorial-row"><span class="editorial-name">Tratamento Capilar Purificante</span><div class="editorial-line"></div><span class="editorial-price">8.00€</span></div>
+                <div class="menu-item"><div class="item-details"><h3>Corte Premium</h3><p>Tesoura e máquina com finalização</p></div><div class="item-price">18€</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Barba Terapia</h3><p>Toalha quente e óleos essenciais</p></div><div class="item-price">14€</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Pack Completo</h3><p>Cabelo e Barba com tratamento</p></div><div class="item-price">28€</div></div>
             `;
         } else if (tipoNegocio === 'cafe') {
             bodyAlvo.className = "theme-cafe";
-            subRotulo.innerText = "Cafetaria Fina & Pastelaria Artesanal";
+            subRotulo.innerText = "Cafetaria Especializada";
             contentorItens.innerHTML = `
-                <div class="editorial-row"><span class="editorial-name">Café de Especialidade Prensa Francesa</span><div class="editorial-line"></div><span class="editorial-price">3.00€</span></div>
-                <div class="editorial-row"><span class="editorial-name">Pastelaria Fina Selecionada</span><div class="editorial-line"></div><span class="editorial-price">2.50€</span></div>
-                <div class="editorial-row"><span class="editorial-name">Brunch Menu Assinado</span><div class="editorial-line"></div><span class="editorial-price">11.50€</span></div>
+                <div class="menu-item"><div class="item-details"><h3>Café de Origem</h3><p>Moído na hora (Arábica 100%)</p></div><div class="item-price">1.50€</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Croissant Francês</h3><p>Artesanal, manteiga extra</p></div><div class="item-price">2.20€</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Brunch NovaPixel</h3><p>Sumo, panquecas, ovos e café</p></div><div class="item-price">14.00€</div></div>
             `;
         } else {
             bodyAlvo.className = "theme-restaurante";
-            subRotulo.innerText = "Alta Cozinha & Experiência Gastronómica";
+            subRotulo.innerText = "Gastronomia de Assinatura";
             contentorItens.innerHTML = `
-                <div class="editorial-row"><span class="editorial-name">Menu de Degustação Principal</span><div class="editorial-line"></div><span class="editorial-price">24.50€</span></div>
-                <div class="editorial-row"><span class="editorial-name">Prato de Autor Sazonal</span><div class="editorial-line"></div><span class="editorial-price">16.00€</span></div>
-                <div class="editorial-row"><span class="editorial-name">Carta de Vinhos Selecionados (Garrafa)</span><div class="editorial-line"></div><span class="editorial-price">18.00€</span></div>
+                <div class="menu-item"><div class="item-details"><h3>Menu Executivo</h3><p>Entrada, Prato do Chef e Bebida</p></div><div class="item-price">16.50€</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Especialidade Sazonal</h3><p>Ingredientes locais selecionados</p></div><div class="item-price">22.00€</div></div>
+                <div class="menu-item"><div class="item-details"><h3>Sobremesa D'Autor</h3><p>Criação exclusiva do nosso pasteleiro</p></div><div class="item-price">6.50€</div></div>
             `;
         }
 
-        // 4. Configuração das Ações Dinâmicas Reais (WhatsApp & Google Maps Iframe)
-        document.getElementById('link-whatsapp').href = `https://wa.me/351${telefoneNumero}?text=Olá!%20Acedi%20ao%20vosso%20protótipo%20digital%20desenvolvido%20pela%20NovaPixel%20e%20gostaria%20de%20esclarecer%20detalhes%20sobre%20os%20serviços%20da%20${encodeURIComponent(nomeEmpresa)}.`;
-        
-        // Injeta o mapa focado de forma exata na morada retirada do Bloco de Notas (CSV)
-        document.getElementById('box-mapa').innerHTML = `<iframe src="https://maps.google.com/maps?q=${encodeURIComponent(moradaFisica)}&t=&z=15&ie=UTF-8&iwloc=&output=embed"></iframe>`;
+        document.getElementById('link-whatsapp').href = `https://wa.me/351${telefoneNumero}?text=Olá!%20Acedi%20ao%20vosso%20protótipo%20digital%20da%20NovaPixel%20e%20gostaria%20de%20esclarecer%20detalhes%20sobre%20os%20serviços%20da%20${encodeURIComponent(nomeEmpresa)}.`;
+        document.getElementById('box-mapa').innerHTML = `<iframe src="http://googleusercontent.com/maps.google.com/4{encodeURIComponent(moradaFisica)}&t=&z=15&ie=UTF-8&iwloc=&output=embed"></iframe>`;
 
-        // 5. Navegação do Sistema Multi-Ecrãs
-        function trocarEcra(idSeccao) {
-            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
-            document.querySelectorAll('nav a').forEach(lnk => lnk.classList.remove('active'));
-            
-            document.getElementById(idSeccao).classList.add('active');
-            document.getElementById(`lnk-${idSeccao}`).classList.add('active');
+        function mudarSeparador(idTab) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(idTab).classList.add('active');
+            document.getElementById(`btn-${idTab}`).classList.add('active');
         }
     </script>
 </body>
